@@ -8,18 +8,18 @@ using CentroAcopioApp.Excepciones;
 
 namespace CentroAcopioApp.Datos.Repositorios.Implementaciones
 {
-    public class RecursoUbicacionRepositorio : IRecursoUbicacionRepositorio
+    public class DetalleSolicitudRepositorio : IDetalleSolicitudRepositorio
     {
-        public IEnumerable<RecursoUbicacionDto> ObtenerTodo()
+        public IEnumerable<DetalleSolicitudDto> ObtenerTodo()
         {
-            var lista = new List<RecursoUbicacionDto>();
+            var lista = new List<DetalleSolicitudDto>();
             var consulta = @"
-                SELECT ru.id, ru.recurso_id, r.nombre AS recurso_nombre,
-                       ru.ubicacion_id, u.nombre AS ubicacion_nombre,
-                       ru.cantidad, ru.vigencia
-                FROM recurso_ubicacion ru
-                INNER JOIN recurso r ON ru.recurso_id = r.id
-                INNER JOIN ubicacion u ON ru.ubicacion_id = u.id";
+            SELECT ds.id, ds.solicitud_id, s.nombre AS solicitud_nombre,
+                   ds.recurso_id, r.nombre AS recurso_nombre,
+                   ds.cantidad_solicitada, ds.cantidad_entregada, ds.vigencia
+            FROM detalle_solicitud ds
+            INNER JOIN solicitud s ON ds.solicitud_id = s.id
+            INNER JOIN recurso r ON ds.recurso_id = r.id";
 
             try
             {
@@ -37,21 +37,21 @@ namespace CentroAcopioApp.Datos.Repositorios.Implementaciones
             }
             catch (SqlException ex)
             {
-                throw new ExcepcionAccesoDatos("Error al obtener las relaciones recurso-ubicación.", ex);
+                throw new ExcepcionAccesoDatos("Error al obtener los detalles de solicitud.", ex);
             }
         }
 
-        public RecursoUbicacionDto ObtenerPorId(int id)
+        public DetalleSolicitudDto ObtenerPorId(int id)
         {
-            RecursoUbicacionDto dto = null;
+            DetalleSolicitudDto dto = null;
             var consulta = @"
-                SELECT ru.id, ru.recurso_id, r.nombre AS recurso_nombre,
-                       ru.ubicacion_id, u.nombre AS ubicacion_nombre,
-                       ru.cantidad, ru.vigencia
-                FROM recurso_ubicacion ru
-                INNER JOIN recurso r ON ru.recurso_id = r.id
-                INNER JOIN ubicacion u ON ru.ubicacion_id = u.id
-                WHERE ru.id = @Id";
+            SELECT ds.id, ds.solicitud_id, s.nombre AS solicitud_nombre,
+                   ds.recurso_id, r.nombre AS recurso_nombre,
+                   ds.cantidad_solicitada, ds.cantidad_entregada, ds.vigencia
+            FROM detalle_solicitud ds
+            INNER JOIN solicitud s ON ds.solicitud_id = s.id
+            INNER JOIN recurso r ON ds.recurso_id = r.id
+            WHERE ds.id = @Id";
 
             try
             {
@@ -71,21 +71,54 @@ namespace CentroAcopioApp.Datos.Repositorios.Implementaciones
             }
             catch (SqlException ex)
             {
-                throw new ExcepcionAccesoDatos("Error al obtener la relación recurso-ubicación.", ex);
+                throw new ExcepcionAccesoDatos("Error al obtener el detalle de solicitud.", ex);
             }
         }
 
-        public IEnumerable<RecursoUbicacionDto> ObtenerPorRecurso(int recursoId)
+        public IEnumerable<DetalleSolicitudDto> ObtenerPorSolicitud(int solicitudId)
         {
-            var lista = new List<RecursoUbicacionDto>();
+            var lista = new List<DetalleSolicitudDto>();
             var consulta = @"
-                SELECT ru.id, ru.recurso_id, r.nombre AS recurso_nombre,
-                       ru.ubicacion_id, u.nombre AS ubicacion_nombre,
-                       ru.cantidad, ru.vigencia
-                FROM recurso_ubicacion ru
-                INNER JOIN recurso r ON ru.recurso_id = r.id
-                INNER JOIN ubicacion u ON ru.ubicacion_id = u.id
-                WHERE ru.recurso_id = @RecursoId";
+            SELECT ds.id, ds.solicitud_id, s.nombre AS solicitud_nombre,
+                   ds.recurso_id, r.nombre AS recurso_nombre,
+                   ds.cantidad_solicitada, ds.cantidad_entregada, ds.vigencia
+            FROM detalle_solicitud ds
+            INNER JOIN solicitud s ON ds.solicitud_id = s.id
+            INNER JOIN recurso r ON ds.recurso_id = r.id
+            WHERE ds.solicitud_id = @SolicitudId";
+
+            try
+            {
+                using (var conn = DbConexion.CrearConexion())
+                using (var cmd = DbConexion.CrearComando(conn, consulta))
+                {
+                    cmd.Parameters.AddWithValue("@SolicitudId", solicitudId);
+                    conn.Open();
+                    using (var lector = cmd.ExecuteReader())
+                    {
+                        while (lector.Read()) lista.Add(MapearDto(lector));
+                    }
+                }
+
+                return lista;
+            }
+            catch (SqlException ex)
+            {
+                throw new ExcepcionAccesoDatos("Error al obtener los detalles por solicitud.", ex);
+            }
+        }
+
+        public IEnumerable<DetalleSolicitudDto> ObtenerPorRecurso(int recursoId)
+        {
+            var lista = new List<DetalleSolicitudDto>();
+            var consulta = @"
+            SELECT ds.id, ds.solicitud_id, s.nombre AS solicitud_nombre,
+                   ds.recurso_id, r.nombre AS recurso_nombre,
+                   ds.cantidad_solicitada, ds.cantidad_entregada, ds.vigencia
+            FROM detalle_solicitud ds
+            INNER JOIN solicitud s ON ds.solicitud_id = s.id
+            INNER JOIN recurso r ON ds.recurso_id = r.id
+            WHERE ds.recurso_id = @RecursoId";
 
             try
             {
@@ -104,58 +137,26 @@ namespace CentroAcopioApp.Datos.Repositorios.Implementaciones
             }
             catch (SqlException ex)
             {
-                throw new ExcepcionAccesoDatos("Error al obtener ubicaciones por recurso.", ex);
+                throw new ExcepcionAccesoDatos("Error al obtener los detalles por recurso.", ex);
             }
         }
 
-        public IEnumerable<RecursoUbicacionDto> ObtenerPorUbicacion(int ubicacionId)
+        public int Insertar(DetalleSolicitudDto dto)
         {
-            var lista = new List<RecursoUbicacionDto>();
             var consulta = @"
-                SELECT ru.id, ru.recurso_id, r.nombre AS recurso_nombre,
-                       ru.ubicacion_id, u.nombre AS ubicacion_nombre,
-                       ru.cantidad, ru.vigencia
-                FROM recurso_ubicacion ru
-                INNER JOIN recurso r ON ru.recurso_id = r.id
-                INNER JOIN ubicacion u ON ru.ubicacion_id = u.id
-                WHERE ru.ubicacion_id = @UbicacionId";
+            INSERT INTO detalle_solicitud (solicitud_id, recurso_id, cantidad_solicitada, cantidad_entregada, vigencia)
+            VALUES (@SolicitudId, @RecursoId, @CantidadSolicitada, @CantidadEntregada, @Vigencia);
+            SELECT SCOPE_IDENTITY();";
 
             try
             {
                 using (var conn = DbConexion.CrearConexion())
                 using (var cmd = DbConexion.CrearComando(conn, consulta))
                 {
-                    cmd.Parameters.AddWithValue("@UbicacionId", ubicacionId);
-                    conn.Open();
-                    using (var lector = cmd.ExecuteReader())
-                    {
-                        while (lector.Read()) lista.Add(MapearDto(lector));
-                    }
-                }
-
-                return lista;
-            }
-            catch (SqlException ex)
-            {
-                throw new ExcepcionAccesoDatos("Error al obtener recursos por ubicación.", ex);
-            }
-        }
-
-        public int Insertar(RecursoUbicacionDto dto)
-        {
-            var consulta = @"
-                INSERT INTO recurso_ubicacion (recurso_id, ubicacion_id, cantidad, vigencia)
-                VALUES (@RecursoId, @UbicacionId, @Cantidad, @Vigencia);
-                SELECT SCOPE_IDENTITY();";
-
-            try
-            {
-                using (var conn = DbConexion.CrearConexion())
-                using (var cmd = DbConexion.CrearComando(conn, consulta))
-                {
+                    cmd.Parameters.AddWithValue("@SolicitudId", dto.SolicitudId);
                     cmd.Parameters.AddWithValue("@RecursoId", dto.RecursoId);
-                    cmd.Parameters.AddWithValue("@UbicacionId", dto.UbicacionId);
-                    cmd.Parameters.AddWithValue("@Cantidad", dto.Cantidad);
+                    cmd.Parameters.AddWithValue("@CantidadSolicitada", dto.CantidadSolicitada);
+                    cmd.Parameters.AddWithValue("@CantidadEntregada", dto.CantidadEntregada);
                     cmd.Parameters.AddWithValue("@Vigencia", dto.Vigencia);
 
                     conn.Open();
@@ -165,19 +166,20 @@ namespace CentroAcopioApp.Datos.Repositorios.Implementaciones
             }
             catch (SqlException ex)
             {
-                throw new ExcepcionAccesoDatos("Error al insertar la relación recurso-ubicación.", ex);
+                throw new ExcepcionAccesoDatos("Error al insertar el detalle de solicitud.", ex);
             }
         }
 
-        public bool Actualizar(RecursoUbicacionDto dto)
+        public bool Actualizar(DetalleSolicitudDto dto)
         {
             var consulta = @"
-                UPDATE recurso_ubicacion
-                SET recurso_id = @RecursoId,
-                    ubicacion_id = @UbicacionId,
-                    cantidad = @Cantidad,
-                    vigencia = @Vigencia
-                WHERE id = @Id";
+            UPDATE detalle_solicitud
+            SET solicitud_id = @SolicitudId,
+                recurso_id = @RecursoId,
+                cantidad_solicitada = @CantidadSolicitada,
+                cantidad_entregada = @CantidadEntregada,
+                vigencia = @Vigencia
+            WHERE id = @Id";
 
             try
             {
@@ -185,9 +187,10 @@ namespace CentroAcopioApp.Datos.Repositorios.Implementaciones
                 using (var cmd = DbConexion.CrearComando(conn, consulta))
                 {
                     cmd.Parameters.AddWithValue("@Id", dto.Id);
+                    cmd.Parameters.AddWithValue("@SolicitudId", dto.SolicitudId);
                     cmd.Parameters.AddWithValue("@RecursoId", dto.RecursoId);
-                    cmd.Parameters.AddWithValue("@UbicacionId", dto.UbicacionId);
-                    cmd.Parameters.AddWithValue("@Cantidad", dto.Cantidad);
+                    cmd.Parameters.AddWithValue("@CantidadSolicitada", dto.CantidadSolicitada);
+                    cmd.Parameters.AddWithValue("@CantidadEntregada", dto.CantidadEntregada);
                     cmd.Parameters.AddWithValue("@Vigencia", dto.Vigencia);
 
                     conn.Open();
@@ -197,13 +200,13 @@ namespace CentroAcopioApp.Datos.Repositorios.Implementaciones
             }
             catch (SqlException ex)
             {
-                throw new ExcepcionAccesoDatos("Error al actualizar la relación recurso-ubicación.", ex);
+                throw new ExcepcionAccesoDatos("Error al actualizar el detalle de solicitud.", ex);
             }
         }
 
         public bool Eliminar(int id)
         {
-            var consulta = @"UPDATE recurso_ubicacion SET vigencia = 'I' WHERE id = @Id";
+            var consulta = @"UPDATE detalle_solicitud SET vigencia = 'I' WHERE id = @Id";
 
             try
             {
@@ -218,20 +221,21 @@ namespace CentroAcopioApp.Datos.Repositorios.Implementaciones
             }
             catch (SqlException ex)
             {
-                throw new ExcepcionAccesoDatos("Error al eliminar la relación recurso-ubicación.", ex);
+                throw new ExcepcionAccesoDatos("Error al eliminar el detalle de solicitud.", ex);
             }
         }
 
-        private RecursoUbicacionDto MapearDto(SqlDataReader reader)
+        private DetalleSolicitudDto MapearDto(SqlDataReader reader)
         {
-            return new RecursoUbicacionDto
+            return new DetalleSolicitudDto
             {
                 Id = reader.GetInt32(reader.GetOrdinal("id")),
+                SolicitudId = reader.GetInt32(reader.GetOrdinal("solicitud_id")),
+                SolicitudNombre = reader.GetString(reader.GetOrdinal("solicitud_nombre")),
                 RecursoId = reader.GetInt32(reader.GetOrdinal("recurso_id")),
                 RecursoNombre = reader.GetString(reader.GetOrdinal("recurso_nombre")),
-                UbicacionId = reader.GetInt32(reader.GetOrdinal("ubicacion_id")),
-                UbicacionNombre = reader.GetString(reader.GetOrdinal("ubicacion_nombre")),
-                Cantidad = reader.GetDecimal(reader.GetOrdinal("cantidad")),
+                CantidadSolicitada = reader.GetDecimal(reader.GetOrdinal("cantidad_solicitada")),
+                CantidadEntregada = reader.GetDecimal(reader.GetOrdinal("cantidad_entregada")),
                 Vigencia = reader.GetString(reader.GetOrdinal("vigencia"))[0]
             };
         }

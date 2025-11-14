@@ -3,13 +3,8 @@ using CentroAcopioApp.DTO;
 
 namespace CentroAcopioApp.Datos.Repositorios.Interfaces
 {
-    public interface ITipoRecursoRepositorio
+    public interface ITipoRecursoRepositorio : IRepositorioBase<TipoRecursoDto>
     {
-        IEnumerable<TipoRecursoDto> ObtenerTodo();
-        TipoRecursoDto ObtenerPorId(int id);
-        IEnumerable<TipoRecursoDto> ObtenerPorNombre(string name);
-        int Insertar(TipoRecursoDto dto);
-        bool Actualizar(TipoRecursoDto dto);
-        bool Eliminar(int id);
+        IEnumerable<TipoRecursoDto> ObtenerPorNombre(string nombre);
     }
 }

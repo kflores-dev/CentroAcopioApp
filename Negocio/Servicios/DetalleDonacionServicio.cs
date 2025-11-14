@@ -9,22 +9,23 @@ using CentroAcopioApp.Utilidades;
 
 namespace CentroAcopioApp.Negocio.Servicios
 {
-    public class RecursoServicio
+    public class DetalleDonacionServicio
     {
-        private readonly IRecursoRepositorio _repositorio;
+        private readonly IDetalleDonacionRepositorio _repositorio;
 
-        public RecursoServicio(IRecursoRepositorio repositorio)
+        public DetalleDonacionServicio(IDetalleDonacionRepositorio repositorio)
         {
             _repositorio = repositorio;
         }
 
-        public IEnumerable<RecursoDto> ObtenerTodo()
+        public IEnumerable<DetalleDonacionDto> ObtenerTodo()
         {
             var lista = _repositorio.ObtenerTodo();
+
             return FiltroRolHelper.FiltrarPorRol(lista);
         }
 
-        public RecursoDto ObtenerPorId(int id)
+        public DetalleDonacionDto ObtenerPorId(int id)
         {
             if (id <= 0)
                 throw new ExcepcionValidacion("El ID debe ser mayor a cero.");
@@ -34,30 +35,44 @@ namespace CentroAcopioApp.Negocio.Servicios
             dto = FiltroRolHelper.FiltrarEntidadPorRol(dto);
 
             if (dto == null)
-                throw new ExcepcionServicio("No se encontró el recurso especificado.");
+                throw new ExcepcionServicio("No se encontró el detalle de donación especificado.");
 
             return dto;
         }
 
-        public IEnumerable<RecursoDto> BuscarPorNombre(string nombre)
+        public IEnumerable<DetalleDonacionDto> BuscarPorDonacion(int donacionId)
         {
-            if (string.IsNullOrWhiteSpace(nombre))
-                throw new ExcepcionValidacion("Debe proporcionar un nombre para la búsqueda.");
+            if (donacionId <= 0)
+                throw new ExcepcionValidacion("Debe proporcionar un ID de donación válido.");
 
-            return FiltroRolHelper.FiltrarPorRol(_repositorio.ObtenerPorNombre(nombre));
+            var lista = _repositorio.ObtenerPorDonacion(donacionId);
+
+            return FiltroRolHelper.FiltrarPorRol(lista);
         }
 
-        public IEnumerable<RecursoDto> BuscarPorTipo(int tipoId)
+        public IEnumerable<DetalleDonacionDto> BuscarPorRecurso(int recursoId)
         {
-            if (tipoId <= 0)
-                throw new ExcepcionValidacion("Debe proporcionar un tipo de recurso válido.");
+            if (recursoId <= 0)
+                throw new ExcepcionValidacion("Debe proporcionar un ID de recurso válido.");
 
-            return FiltroRolHelper.FiltrarPorRol(_repositorio.ObtenerPorTipo(tipoId));
+            var lista = _repositorio.ObtenerPorRecurso(recursoId);
+
+            return FiltroRolHelper.FiltrarPorRol(lista);
         }
 
-        public int Crear(RecursoDto dto)
+        public IEnumerable<DetalleDonacionDto> BuscarPorUbicacion(int ubicacionId)
         {
-            RecursoValidador.Validar(dto);
+            if (ubicacionId <= 0)
+                throw new ExcepcionValidacion("Debe proporcionar un ID de ubicación válido.");
+
+            var lista = _repositorio.ObtenerPorUbicacion(ubicacionId);
+
+            return FiltroRolHelper.FiltrarPorRol(lista);
+        }
+
+        public int Crear(DetalleDonacionDto dto)
+        {
+            DetalleDonacionValidador.Validar(dto);
 
             using (var tx = new TransaccionManager())
             {
@@ -68,9 +83,10 @@ namespace CentroAcopioApp.Negocio.Servicios
                     HistorialServicio.Registrar(
                         usuarioId: SesionActual.Instancia.UsuarioId,
                         accion: "Crear",
-                        entidad: "Recurso",
+                        entidad: "DetalleDonacion",
                         entidadId: id,
-                        descripcion: $"Se creó un recurso: {dto.Nombre}."
+                        descripcion: $"Se creó el detalle de donación para el recurso {dto.RecursoNombre} " +
+                                     $"en la ubicación {dto.UbicacionNombre} (Cantidad: {dto.CantidadDonada})."
                     );
 
                     return id;
@@ -78,9 +94,9 @@ namespace CentroAcopioApp.Negocio.Servicios
             }
         }
 
-        public bool Actualizar(RecursoDto dto)
+        public bool Actualizar(DetalleDonacionDto dto)
         {
-            RecursoValidador.Validar(dto);
+            DetalleDonacionValidador.Validar(dto);
 
             using (var tx = new TransaccionManager())
             {
@@ -88,14 +104,15 @@ namespace CentroAcopioApp.Negocio.Servicios
                 {
                     var actualizado = _repositorio.Actualizar(dto);
                     if (!actualizado)
-                        throw new ExcepcionServicio("No se pudo actualizar el recurso.");
+                        throw new ExcepcionServicio("No se pudo actualizar el detalle de donación.");
 
                     HistorialServicio.Registrar(
                         usuarioId: SesionActual.Instancia.UsuarioId,
                         accion: "Actualizar",
-                        entidad: "Recurso",
+                        entidad: "DetalleDonacion",
                         entidadId: dto.Id,
-                        descripcion: $"Se actualizó el recurso: {dto.Nombre}."
+                        descripcion: $"Se actualizó el detalle de donación del recurso {dto.RecursoNombre} " +
+                                     $"en la ubicación {dto.UbicacionNombre} (Cantidad: {dto.CantidadDonada})."
                     );
 
                     return actualizado;
@@ -114,14 +131,14 @@ namespace CentroAcopioApp.Negocio.Servicios
                 {
                     var eliminado = _repositorio.Eliminar(id);
                     if (!eliminado)
-                        throw new ExcepcionServicio("No se encontró el recurso para eliminar.");
+                        throw new ExcepcionServicio("No se encontró el detalle de donación para eliminar.");
 
                     HistorialServicio.Registrar(
                         usuarioId: SesionActual.Instancia.UsuarioId,
                         accion: "Eliminar",
-                        entidad: "Recurso",
+                        entidad: "DetalleDonacion",
                         entidadId: id,
-                        descripcion: $"Se eliminó el recurso con ID {id}."
+                        descripcion: $"Se eliminó el detalle de donación con ID {id}."
                     );
 
                     return eliminado;

@@ -68,6 +68,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(115, 29);
             this.label1.TabIndex = 0;
+            this.label1.Tag = "";
             this.label1.Text = "Recursos";
             // 
             // dgvRecursos
@@ -91,6 +92,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(69, 20);
             this.label2.TabIndex = 2;
+            this.label2.Tag = "field";
             this.label2.Text = "Nombre:";
             // 
             // txtBuscarNombre
@@ -331,6 +333,7 @@
             this.groupBox3.Size = new System.Drawing.Size(1260, 81);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
+            this.groupBox3.Tag = "group";
             this.groupBox3.Text = "Busqueda";
             // 
             // btnLimpiarBusqueda
@@ -357,6 +360,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "FormRecurso";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormRecurso";
             this.Load += new System.EventHandler(this.FormRecurso_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvRecursos)).EndInit();
@@ -367,7 +371,6 @@
             this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion

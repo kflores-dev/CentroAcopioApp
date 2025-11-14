@@ -2,8 +2,10 @@
 using CentroAcopioApp.Datos.Repositorios.Interfaces;
 using CentroAcopioApp.DTO;
 using CentroAcopioApp.Excepciones;
+using CentroAcopioApp.Negocio.Seguridad;
 using CentroAcopioApp.Negocio.Transaccion;
 using CentroAcopioApp.Negocio.Validaciones;
+using CentroAcopioApp.Utilidades;
 
 namespace CentroAcopioApp.Negocio.Servicios
 {
@@ -18,7 +20,8 @@ namespace CentroAcopioApp.Negocio.Servicios
 
         public IEnumerable<TipoRecursoDto> ObtenerTodo()
         {
-            return _repositorio.ObtenerTodo();
+            var lista = _repositorio.ObtenerTodo();
+            return FiltroRolHelper.FiltrarPorRol(lista);
         }
 
         public TipoRecursoDto ObtenerPorId(int id)
@@ -27,6 +30,9 @@ namespace CentroAcopioApp.Negocio.Servicios
                 throw new ExcepcionValidacion("El ID debe ser mayor a cero.");
 
             var dto = _repositorio.ObtenerPorId(id);
+
+            dto = FiltroRolHelper.FiltrarEntidadPorRol(dto);
+
             if (dto == null)
                 throw new ExcepcionServicio("No se encontró el tipo de recurso especificado.");
 
@@ -38,7 +44,9 @@ namespace CentroAcopioApp.Negocio.Servicios
             if (string.IsNullOrWhiteSpace(nombre))
                 throw new ExcepcionValidacion("Debe proporcionar un nombre para la búsqueda.");
 
-            return _repositorio.ObtenerPorNombre(nombre);
+            var lista = _repositorio.ObtenerPorNombre(nombre);
+
+            return FiltroRolHelper.FiltrarPorRol(lista);
         }
 
         public int Crear(TipoRecursoDto dto)
@@ -50,6 +58,15 @@ namespace CentroAcopioApp.Negocio.Servicios
                 return tx.EjecutarResultado(() =>
                 {
                     var id = _repositorio.Insertar(dto);
+
+                    HistorialServicio.Registrar(
+                        usuarioId: SesionActual.Instancia.UsuarioId,
+                        accion: "Crear",
+                        entidad: "TipoRecurso",
+                        entidadId: id,
+                        descripcion: $"Se creó el tipo de recurso: {dto.Nombre}."
+                    );
+
                     return id;
                 });
             }
@@ -66,6 +83,15 @@ namespace CentroAcopioApp.Negocio.Servicios
                     var actualizado = _repositorio.Actualizar(dto);
                     if (!actualizado)
                         throw new ExcepcionServicio("No se pudo actualizar el tipo de recurso.");
+
+                    HistorialServicio.Registrar(
+                        usuarioId: SesionActual.Instancia.UsuarioId,
+                        accion: "Actualizar",
+                        entidad: "TipoRecurso",
+                        entidadId: dto.Id,
+                        descripcion: $"Se actualizó el tipo de recurso: {dto.Nombre}."
+                    );
+
                     return actualizado;
                 });
             }
@@ -83,6 +109,15 @@ namespace CentroAcopioApp.Negocio.Servicios
                     var eliminado = _repositorio.Eliminar(id);
                     if (!eliminado)
                         throw new ExcepcionServicio("No se encontró el tipo de recurso para eliminar.");
+
+                    HistorialServicio.Registrar(
+                        usuarioId: SesionActual.Instancia.UsuarioId,
+                        accion: "Eliminar",
+                        entidad: "TipoRecurso",
+                        entidadId: id,
+                        descripcion: $"Se eliminó el tipo de recurso con ID {id}."
+                    );
+
                     return eliminado;
                 });
             }

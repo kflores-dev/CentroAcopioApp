@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace CentroAcopioApp.Utilidades
+namespace CentroAcopioApp.Negocio.Seguridad
 {
     public class PasswordHasher
     {
@@ -17,6 +17,19 @@ namespace CentroAcopioApp.Utilidades
                 var hash = sha256.ComputeHash(bytes);
                 return Convert.ToBase64String(hash);
             }
+        }
+
+        public static bool VerificarHash(string passwordIngresada, string hashAlmacenado)
+        {
+            if (string.IsNullOrWhiteSpace(passwordIngresada))
+                return false;
+
+            if (string.IsNullOrWhiteSpace(hashAlmacenado))
+                return false;
+
+            var hashIngresado = GenerarHash(passwordIngresada);
+
+            return hashIngresado == hashAlmacenado;
         }
     }
 }

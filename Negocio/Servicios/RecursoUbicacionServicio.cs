@@ -2,8 +2,10 @@
 using CentroAcopioApp.Datos.Repositorios.Interfaces;
 using CentroAcopioApp.DTO;
 using CentroAcopioApp.Excepciones;
+using CentroAcopioApp.Negocio.Seguridad;
 using CentroAcopioApp.Negocio.Transaccion;
 using CentroAcopioApp.Negocio.Validaciones;
+using CentroAcopioApp.Utilidades;
 
 namespace CentroAcopioApp.Negocio.Servicios
 {
@@ -18,7 +20,8 @@ namespace CentroAcopioApp.Negocio.Servicios
 
         public IEnumerable<RecursoUbicacionDto> ObtenerTodo()
         {
-            return _repositorio.ObtenerTodo();
+            var lista = _repositorio.ObtenerTodo();
+            return FiltroRolHelper.FiltrarPorRol(lista);
         }
 
         public RecursoUbicacionDto ObtenerPorId(int id)
@@ -27,6 +30,9 @@ namespace CentroAcopioApp.Negocio.Servicios
                 throw new ExcepcionValidacion("El ID debe ser mayor a cero.");
 
             var dto = _repositorio.ObtenerPorId(id);
+
+            dto = FiltroRolHelper.FiltrarEntidadPorRol(dto);
+
             if (dto == null)
                 throw new ExcepcionServicio("No se encontró el registro especificado de recurso en ubicación.");
 
@@ -38,7 +44,9 @@ namespace CentroAcopioApp.Negocio.Servicios
             if (recursoId <= 0)
                 throw new ExcepcionValidacion("Debe proporcionar un ID de recurso válido.");
 
-            return _repositorio.ObtenerPorRecurso(recursoId);
+            var lista = _repositorio.ObtenerPorRecurso(recursoId);
+
+            return FiltroRolHelper.FiltrarPorRol(lista);
         }
 
         public IEnumerable<RecursoUbicacionDto> BuscarPorUbicacion(int ubicacionId)
@@ -46,7 +54,9 @@ namespace CentroAcopioApp.Negocio.Servicios
             if (ubicacionId <= 0)
                 throw new ExcepcionValidacion("Debe proporcionar un ID de ubicación válido.");
 
-            return _repositorio.ObtenerPorUbicacion(ubicacionId);
+            var lista = _repositorio.ObtenerPorUbicacion(ubicacionId);
+
+            return FiltroRolHelper.FiltrarPorRol(lista);
         }
 
         public int Crear(RecursoUbicacionDto dto)
@@ -58,6 +68,16 @@ namespace CentroAcopioApp.Negocio.Servicios
                 return tx.EjecutarResultado(() =>
                 {
                     var id = _repositorio.Insertar(dto);
+
+                    HistorialServicio.Registrar(
+                        usuarioId: SesionActual.Instancia.UsuarioId,
+                        accion: "Crear",
+                        entidad: "RecursoUbicacion",
+                        entidadId: id,
+                        descripcion:
+                        $"Se creó la asignación del recurso {dto.RecursoId} en la ubicación {dto.UbicacionId}."
+                    );
+
                     return id;
                 });
             }
@@ -74,6 +94,16 @@ namespace CentroAcopioApp.Negocio.Servicios
                     var actualizado = _repositorio.Actualizar(dto);
                     if (!actualizado)
                         throw new ExcepcionServicio("No se pudo actualizar el registro de recurso en ubicación.");
+
+                    HistorialServicio.Registrar(
+                        usuarioId: SesionActual.Instancia.UsuarioId,
+                        accion: "Actualizar",
+                        entidad: "RecursoUbicacion",
+                        entidadId: dto.Id,
+                        descripcion:
+                        $"Se actualizó la asignación del recurso {dto.RecursoId} en la ubicación {dto.UbicacionId}."
+                    );
+
                     return actualizado;
                 });
             }
@@ -92,6 +122,15 @@ namespace CentroAcopioApp.Negocio.Servicios
                     if (!eliminado)
                         throw new ExcepcionServicio(
                             "No se encontró el registro de recurso en ubicación para eliminar.");
+
+                    HistorialServicio.Registrar(
+                        usuarioId: SesionActual.Instancia.UsuarioId,
+                        accion: "Eliminar",
+                        entidad: "RecursoUbicacion",
+                        entidadId: id,
+                        descripcion: $"Se eliminó la asignación de recurso en ubicación con ID {id}."
+                    );
+
                     return eliminado;
                 });
             }

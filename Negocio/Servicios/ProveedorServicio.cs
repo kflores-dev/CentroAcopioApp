@@ -9,22 +9,23 @@ using CentroAcopioApp.Utilidades;
 
 namespace CentroAcopioApp.Negocio.Servicios
 {
-    public class RecursoServicio
+    public class ProveedorServicio
     {
-        private readonly IRecursoRepositorio _repositorio;
+        private readonly IProveedorRepositorio _repositorio;
 
-        public RecursoServicio(IRecursoRepositorio repositorio)
+        public ProveedorServicio(IProveedorRepositorio repositorio)
         {
             _repositorio = repositorio;
         }
 
-        public IEnumerable<RecursoDto> ObtenerTodo()
+        public IEnumerable<ProveedorDto> ObtenerTodo()
         {
             var lista = _repositorio.ObtenerTodo();
+
             return FiltroRolHelper.FiltrarPorRol(lista);
         }
 
-        public RecursoDto ObtenerPorId(int id)
+        public ProveedorDto ObtenerPorId(int id)
         {
             if (id <= 0)
                 throw new ExcepcionValidacion("El ID debe ser mayor a cero.");
@@ -34,12 +35,12 @@ namespace CentroAcopioApp.Negocio.Servicios
             dto = FiltroRolHelper.FiltrarEntidadPorRol(dto);
 
             if (dto == null)
-                throw new ExcepcionServicio("No se encontró el recurso especificado.");
+                throw new ExcepcionServicio("No se encontró el proveedor especificado.");
 
             return dto;
         }
 
-        public IEnumerable<RecursoDto> BuscarPorNombre(string nombre)
+        public IEnumerable<ProveedorDto> BuscarPorNombre(string nombre)
         {
             if (string.IsNullOrWhiteSpace(nombre))
                 throw new ExcepcionValidacion("Debe proporcionar un nombre para la búsqueda.");
@@ -47,17 +48,9 @@ namespace CentroAcopioApp.Negocio.Servicios
             return FiltroRolHelper.FiltrarPorRol(_repositorio.ObtenerPorNombre(nombre));
         }
 
-        public IEnumerable<RecursoDto> BuscarPorTipo(int tipoId)
+        public int Crear(ProveedorDto dto)
         {
-            if (tipoId <= 0)
-                throw new ExcepcionValidacion("Debe proporcionar un tipo de recurso válido.");
-
-            return FiltroRolHelper.FiltrarPorRol(_repositorio.ObtenerPorTipo(tipoId));
-        }
-
-        public int Crear(RecursoDto dto)
-        {
-            RecursoValidador.Validar(dto);
+            ProveedorValidador.Validar(dto);
 
             using (var tx = new TransaccionManager())
             {
@@ -68,9 +61,9 @@ namespace CentroAcopioApp.Negocio.Servicios
                     HistorialServicio.Registrar(
                         usuarioId: SesionActual.Instancia.UsuarioId,
                         accion: "Crear",
-                        entidad: "Recurso",
+                        entidad: "Proveedor",
                         entidadId: id,
-                        descripcion: $"Se creó un recurso: {dto.Nombre}."
+                        descripcion: $"Se creó un proveedor: {dto.Nombre}."
                     );
 
                     return id;
@@ -78,9 +71,9 @@ namespace CentroAcopioApp.Negocio.Servicios
             }
         }
 
-        public bool Actualizar(RecursoDto dto)
+        public bool Actualizar(ProveedorDto dto)
         {
-            RecursoValidador.Validar(dto);
+            ProveedorValidador.Validar(dto);
 
             using (var tx = new TransaccionManager())
             {
@@ -88,14 +81,14 @@ namespace CentroAcopioApp.Negocio.Servicios
                 {
                     var actualizado = _repositorio.Actualizar(dto);
                     if (!actualizado)
-                        throw new ExcepcionServicio("No se pudo actualizar el recurso.");
+                        throw new ExcepcionServicio("No se pudo actualizar el proveedor.");
 
                     HistorialServicio.Registrar(
                         usuarioId: SesionActual.Instancia.UsuarioId,
                         accion: "Actualizar",
-                        entidad: "Recurso",
+                        entidad: "Proveedor",
                         entidadId: dto.Id,
-                        descripcion: $"Se actualizó el recurso: {dto.Nombre}."
+                        descripcion: $"Se actualizó el proveedor: {dto.Nombre}."
                     );
 
                     return actualizado;
@@ -114,14 +107,14 @@ namespace CentroAcopioApp.Negocio.Servicios
                 {
                     var eliminado = _repositorio.Eliminar(id);
                     if (!eliminado)
-                        throw new ExcepcionServicio("No se encontró el recurso para eliminar.");
+                        throw new ExcepcionServicio("No se encontró el proveedor para eliminar.");
 
                     HistorialServicio.Registrar(
                         usuarioId: SesionActual.Instancia.UsuarioId,
                         accion: "Eliminar",
-                        entidad: "Recurso",
+                        entidad: "Proveedor",
                         entidadId: id,
-                        descripcion: $"Se eliminó el recurso con ID {id}."
+                        descripcion: $"Se eliminó el proveedor con ID {id}."
                     );
 
                     return eliminado;

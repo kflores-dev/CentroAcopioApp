@@ -1,6 +1,11 @@
 ﻿using System;
 using System.Windows.Forms;
 using CentroAcopioApp.Datos.Conexion;
+using CentroAcopioApp.Datos.Repositorios.Implementaciones;
+using CentroAcopioApp.Datos.Repositorios.Interfaces;
+using CentroAcopioApp.DTO;
+using CentroAcopioApp.Excepciones;
+using CentroAcopioApp.Negocio.Servicios;
 using CentroAcopioApp.Presentacion.Formularios;
 
 namespace CentroAcopioApp
@@ -26,9 +31,12 @@ namespace CentroAcopioApp
                 Console.WriteLine("Error de conexión: " + ex.Message);
             }
 
+            var historialRepo = new HistorialRepositorio();
+            var historialSrv = new HistorialServicio(historialRepo);
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormMovimientosRecursos());
+            Application.Run(new FormLogin(new UsuarioRepositorio()));
         }
     }
 }

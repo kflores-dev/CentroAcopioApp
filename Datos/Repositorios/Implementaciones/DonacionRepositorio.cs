@@ -8,18 +8,16 @@ using CentroAcopioApp.Excepciones;
 
 namespace CentroAcopioApp.Datos.Repositorios.Implementaciones
 {
-    public class RecursoUbicacionRepositorio : IRecursoUbicacionRepositorio
+    public class DonacionRepositorio : IRepositorioBase<DonacionDto>
     {
-        public IEnumerable<RecursoUbicacionDto> ObtenerTodo()
+        public IEnumerable<DonacionDto> ObtenerTodo()
         {
-            var lista = new List<RecursoUbicacionDto>();
+            var lista = new List<DonacionDto>();
             var consulta = @"
-                SELECT ru.id, ru.recurso_id, r.nombre AS recurso_nombre,
-                       ru.ubicacion_id, u.nombre AS ubicacion_nombre,
-                       ru.cantidad, ru.vigencia
-                FROM recurso_ubicacion ru
-                INNER JOIN recurso r ON ru.recurso_id = r.id
-                INNER JOIN ubicacion u ON ru.ubicacion_id = u.id";
+                SELECT d.id, d.proveedor_id, p.nombre AS proveedor_nombre,
+                       d.fecha, d.observaciones, d.vigencia
+                FROM donacion d
+                INNER JOIN proveedor p ON d.proveedor_id = p.id";
 
             try
             {
@@ -37,21 +35,19 @@ namespace CentroAcopioApp.Datos.Repositorios.Implementaciones
             }
             catch (SqlException ex)
             {
-                throw new ExcepcionAccesoDatos("Error al obtener las relaciones recurso-ubicación.", ex);
+                throw new ExcepcionAccesoDatos("Error al obtener las donaciones.", ex);
             }
         }
 
-        public RecursoUbicacionDto ObtenerPorId(int id)
+        public DonacionDto ObtenerPorId(int id)
         {
-            RecursoUbicacionDto dto = null;
+            DonacionDto dto = null;
             var consulta = @"
-                SELECT ru.id, ru.recurso_id, r.nombre AS recurso_nombre,
-                       ru.ubicacion_id, u.nombre AS ubicacion_nombre,
-                       ru.cantidad, ru.vigencia
-                FROM recurso_ubicacion ru
-                INNER JOIN recurso r ON ru.recurso_id = r.id
-                INNER JOIN ubicacion u ON ru.ubicacion_id = u.id
-                WHERE ru.id = @Id";
+                SELECT d.id, d.proveedor_id, p.nombre AS proveedor_nombre,
+                       d.fecha, d.observaciones, d.vigencia
+                FROM donacion d
+                INNER JOIN proveedor p ON d.proveedor_id = p.id
+                WHERE d.id = @Id";
 
             try
             {
@@ -71,28 +67,26 @@ namespace CentroAcopioApp.Datos.Repositorios.Implementaciones
             }
             catch (SqlException ex)
             {
-                throw new ExcepcionAccesoDatos("Error al obtener la relación recurso-ubicación.", ex);
+                throw new ExcepcionAccesoDatos("Error al obtener la donación.", ex);
             }
         }
 
-        public IEnumerable<RecursoUbicacionDto> ObtenerPorRecurso(int recursoId)
+        public IEnumerable<DonacionDto> ObtenerPorProveedor(int proveedorId)
         {
-            var lista = new List<RecursoUbicacionDto>();
+            var lista = new List<DonacionDto>();
             var consulta = @"
-                SELECT ru.id, ru.recurso_id, r.nombre AS recurso_nombre,
-                       ru.ubicacion_id, u.nombre AS ubicacion_nombre,
-                       ru.cantidad, ru.vigencia
-                FROM recurso_ubicacion ru
-                INNER JOIN recurso r ON ru.recurso_id = r.id
-                INNER JOIN ubicacion u ON ru.ubicacion_id = u.id
-                WHERE ru.recurso_id = @RecursoId";
+                SELECT d.id, d.proveedor_id, p.nombre AS proveedor_nombre,
+                       d.fecha, d.observaciones, d.vigencia
+                FROM donacion d
+                INNER JOIN proveedor p ON d.proveedor_id = p.id
+                WHERE d.proveedor_id = @ProveedorId";
 
             try
             {
                 using (var conn = DbConexion.CrearConexion())
                 using (var cmd = DbConexion.CrearComando(conn, consulta))
                 {
-                    cmd.Parameters.AddWithValue("@RecursoId", recursoId);
+                    cmd.Parameters.AddWithValue("@ProveedorId", proveedorId);
                     conn.Open();
                     using (var lector = cmd.ExecuteReader())
                     {
@@ -104,28 +98,26 @@ namespace CentroAcopioApp.Datos.Repositorios.Implementaciones
             }
             catch (SqlException ex)
             {
-                throw new ExcepcionAccesoDatos("Error al obtener ubicaciones por recurso.", ex);
+                throw new ExcepcionAccesoDatos("Error al obtener donaciones por proveedor.", ex);
             }
         }
 
-        public IEnumerable<RecursoUbicacionDto> ObtenerPorUbicacion(int ubicacionId)
+        public IEnumerable<DonacionDto> ObtenerPorFecha(DateTime fecha)
         {
-            var lista = new List<RecursoUbicacionDto>();
+            var lista = new List<DonacionDto>();
             var consulta = @"
-                SELECT ru.id, ru.recurso_id, r.nombre AS recurso_nombre,
-                       ru.ubicacion_id, u.nombre AS ubicacion_nombre,
-                       ru.cantidad, ru.vigencia
-                FROM recurso_ubicacion ru
-                INNER JOIN recurso r ON ru.recurso_id = r.id
-                INNER JOIN ubicacion u ON ru.ubicacion_id = u.id
-                WHERE ru.ubicacion_id = @UbicacionId";
+                SELECT d.id, d.proveedor_id, p.nombre AS proveedor_nombre,
+                       d.fecha, d.observaciones, d.vigencia
+                FROM donacion d
+                INNER JOIN proveedor p ON d.proveedor_id = p.id
+                WHERE CAST(d.fecha AS DATE) = @Fecha";
 
             try
             {
                 using (var conn = DbConexion.CrearConexion())
                 using (var cmd = DbConexion.CrearComando(conn, consulta))
                 {
-                    cmd.Parameters.AddWithValue("@UbicacionId", ubicacionId);
+                    cmd.Parameters.AddWithValue("@Fecha", fecha.Date);
                     conn.Open();
                     using (var lector = cmd.ExecuteReader())
                     {
@@ -137,15 +129,15 @@ namespace CentroAcopioApp.Datos.Repositorios.Implementaciones
             }
             catch (SqlException ex)
             {
-                throw new ExcepcionAccesoDatos("Error al obtener recursos por ubicación.", ex);
+                throw new ExcepcionAccesoDatos("Error al obtener donaciones por fecha.", ex);
             }
         }
 
-        public int Insertar(RecursoUbicacionDto dto)
+        public int Insertar(DonacionDto dto)
         {
             var consulta = @"
-                INSERT INTO recurso_ubicacion (recurso_id, ubicacion_id, cantidad, vigencia)
-                VALUES (@RecursoId, @UbicacionId, @Cantidad, @Vigencia);
+                INSERT INTO donacion (proveedor_id, fecha, observaciones, vigencia)
+                VALUES (@ProveedorId, @Fecha, @Observaciones, @Vigencia);
                 SELECT SCOPE_IDENTITY();";
 
             try
@@ -153,9 +145,9 @@ namespace CentroAcopioApp.Datos.Repositorios.Implementaciones
                 using (var conn = DbConexion.CrearConexion())
                 using (var cmd = DbConexion.CrearComando(conn, consulta))
                 {
-                    cmd.Parameters.AddWithValue("@RecursoId", dto.RecursoId);
-                    cmd.Parameters.AddWithValue("@UbicacionId", dto.UbicacionId);
-                    cmd.Parameters.AddWithValue("@Cantidad", dto.Cantidad);
+                    cmd.Parameters.AddWithValue("@ProveedorId", dto.ProveedorId);
+                    cmd.Parameters.AddWithValue("@Fecha", dto.Fecha);
+                    cmd.Parameters.AddWithValue("@Observaciones", (object)dto.Observaciones ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@Vigencia", dto.Vigencia);
 
                     conn.Open();
@@ -165,17 +157,17 @@ namespace CentroAcopioApp.Datos.Repositorios.Implementaciones
             }
             catch (SqlException ex)
             {
-                throw new ExcepcionAccesoDatos("Error al insertar la relación recurso-ubicación.", ex);
+                throw new ExcepcionAccesoDatos("Error al insertar la donación.", ex);
             }
         }
 
-        public bool Actualizar(RecursoUbicacionDto dto)
+        public bool Actualizar(DonacionDto dto)
         {
             var consulta = @"
-                UPDATE recurso_ubicacion
-                SET recurso_id = @RecursoId,
-                    ubicacion_id = @UbicacionId,
-                    cantidad = @Cantidad,
+                UPDATE donacion
+                SET proveedor_id = @ProveedorId,
+                    fecha = @Fecha,
+                    observaciones = @Observaciones,
                     vigencia = @Vigencia
                 WHERE id = @Id";
 
@@ -185,9 +177,9 @@ namespace CentroAcopioApp.Datos.Repositorios.Implementaciones
                 using (var cmd = DbConexion.CrearComando(conn, consulta))
                 {
                     cmd.Parameters.AddWithValue("@Id", dto.Id);
-                    cmd.Parameters.AddWithValue("@RecursoId", dto.RecursoId);
-                    cmd.Parameters.AddWithValue("@UbicacionId", dto.UbicacionId);
-                    cmd.Parameters.AddWithValue("@Cantidad", dto.Cantidad);
+                    cmd.Parameters.AddWithValue("@ProveedorId", dto.ProveedorId);
+                    cmd.Parameters.AddWithValue("@Fecha", dto.Fecha);
+                    cmd.Parameters.AddWithValue("@Observaciones", (object)dto.Observaciones ?? DBNull.Value);
                     cmd.Parameters.AddWithValue("@Vigencia", dto.Vigencia);
 
                     conn.Open();
@@ -197,13 +189,13 @@ namespace CentroAcopioApp.Datos.Repositorios.Implementaciones
             }
             catch (SqlException ex)
             {
-                throw new ExcepcionAccesoDatos("Error al actualizar la relación recurso-ubicación.", ex);
+                throw new ExcepcionAccesoDatos("Error al actualizar la donación.", ex);
             }
         }
 
         public bool Eliminar(int id)
         {
-            var consulta = @"UPDATE recurso_ubicacion SET vigencia = 'I' WHERE id = @Id";
+            var consulta = @"UPDATE donacion SET vigencia = 'I' WHERE id = @Id";
 
             try
             {
@@ -218,22 +210,22 @@ namespace CentroAcopioApp.Datos.Repositorios.Implementaciones
             }
             catch (SqlException ex)
             {
-                throw new ExcepcionAccesoDatos("Error al eliminar la relación recurso-ubicación.", ex);
+                throw new ExcepcionAccesoDatos("Error al eliminar la donación.", ex);
             }
         }
 
-        private RecursoUbicacionDto MapearDto(SqlDataReader reader)
+        private DonacionDto MapearDto(SqlDataReader reader)
         {
-            return new RecursoUbicacionDto
+            return new DonacionDto
             {
                 Id = reader.GetInt32(reader.GetOrdinal("id")),
-                RecursoId = reader.GetInt32(reader.GetOrdinal("recurso_id")),
-                RecursoNombre = reader.GetString(reader.GetOrdinal("recurso_nombre")),
-                UbicacionId = reader.GetInt32(reader.GetOrdinal("ubicacion_id")),
-                UbicacionNombre = reader.GetString(reader.GetOrdinal("ubicacion_nombre")),
-                Cantidad = reader.GetDecimal(reader.GetOrdinal("cantidad")),
+                ProveedorId = reader.GetInt32(reader.GetOrdinal("proveedor_id")),
+                ProveedorNombre = reader.GetString(reader.GetOrdinal("proveedor_nombre")),
+                Fecha = reader.GetDateTime(reader.GetOrdinal("fecha")),
+                Observaciones = reader.IsDBNull(reader.GetOrdinal("observaciones")) ? null : reader.GetString(reader.GetOrdinal("observaciones")),
                 Vigencia = reader.GetString(reader.GetOrdinal("vigencia"))[0]
             };
         }
     }
+   
 }

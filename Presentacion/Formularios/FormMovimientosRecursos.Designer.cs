@@ -50,18 +50,19 @@
             this.label8 = new System.Windows.Forms.Label();
             this.txtCantidadTotal = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.btnCambiar = new System.Windows.Forms.Button();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.txtCantidadX = new System.Windows.Forms.TextBox();
-            this.cbUbicacionX = new System.Windows.Forms.ComboBox();
+            this.txtCantidadCambiar = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.cbUbicacionY = new System.Windows.Forms.ComboBox();
             this.txtCantidadY = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.txtCantidadCambiar = new System.Windows.Forms.TextBox();
+            this.cbUbicacionX = new System.Windows.Forms.ComboBox();
+            this.txtCantidadX = new System.Windows.Forms.TextBox();
+            this.btnCambiar = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btnSalida = new System.Windows.Forms.Button();
             this.txtCantidadMover = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.cbUbicacionZ = new System.Windows.Forms.ComboBox();
@@ -71,7 +72,6 @@
             this.label18 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.txtUnidadMedida = new System.Windows.Forms.TextBox();
-            this.btnSalida = new System.Windows.Forms.Button();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -312,53 +312,23 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Cambio de ubicación";
             // 
-            // btnCambiar
+            // txtCantidadCambiar
             // 
-            this.btnCambiar.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCambiar.Location = new System.Drawing.Point(395, 136);
-            this.btnCambiar.Name = "btnCambiar";
-            this.btnCambiar.Size = new System.Drawing.Size(122, 43);
-            this.btnCambiar.TabIndex = 2;
-            this.btnCambiar.Text = "Cambiar";
-            this.btnCambiar.UseVisualStyleBackColor = true;
+            this.txtCantidadCambiar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCantidadCambiar.Location = new System.Drawing.Point(163, 145);
+            this.txtCantidadCambiar.Name = "txtCantidadCambiar";
+            this.txtCantidadCambiar.Size = new System.Drawing.Size(121, 26);
+            this.txtCantidadCambiar.TabIndex = 18;
             // 
-            // label9
+            // label13
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(7, 78);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(152, 20);
-            this.label9.TabIndex = 2;
-            this.label9.Text = "Cantidad disponible:";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(6, 45);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(147, 20);
-            this.label10.TabIndex = 0;
-            this.label10.Text = "Desde la ubicación:";
-            // 
-            // txtCantidadX
-            // 
-            this.txtCantidadX.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCantidadX.Location = new System.Drawing.Point(165, 75);
-            this.txtCantidadX.Name = "txtCantidadX";
-            this.txtCantidadX.ReadOnly = true;
-            this.txtCantidadX.Size = new System.Drawing.Size(94, 26);
-            this.txtCantidadX.TabIndex = 11;
-            // 
-            // cbUbicacionX
-            // 
-            this.cbUbicacionX.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbUbicacionX.FormattingEnabled = true;
-            this.cbUbicacionX.Location = new System.Drawing.Point(151, 42);
-            this.cbUbicacionX.Name = "cbUbicacionX";
-            this.cbUbicacionX.Size = new System.Drawing.Size(204, 28);
-            this.cbUbicacionX.TabIndex = 12;
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(7, 148);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(150, 20);
+            this.label13.TabIndex = 17;
+            this.label13.Text = "Cantidad a cambiar:";
             // 
             // cbUbicacionY
             // 
@@ -398,23 +368,53 @@
             this.label12.TabIndex = 13;
             this.label12.Text = "Hasta la ubicación:";
             // 
-            // label13
+            // cbUbicacionX
             // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(7, 148);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(150, 20);
-            this.label13.TabIndex = 17;
-            this.label13.Text = "Cantidad a cambiar:";
+            this.cbUbicacionX.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbUbicacionX.FormattingEnabled = true;
+            this.cbUbicacionX.Location = new System.Drawing.Point(151, 42);
+            this.cbUbicacionX.Name = "cbUbicacionX";
+            this.cbUbicacionX.Size = new System.Drawing.Size(204, 28);
+            this.cbUbicacionX.TabIndex = 12;
             // 
-            // txtCantidadCambiar
+            // txtCantidadX
             // 
-            this.txtCantidadCambiar.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCantidadCambiar.Location = new System.Drawing.Point(163, 145);
-            this.txtCantidadCambiar.Name = "txtCantidadCambiar";
-            this.txtCantidadCambiar.Size = new System.Drawing.Size(121, 26);
-            this.txtCantidadCambiar.TabIndex = 18;
+            this.txtCantidadX.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCantidadX.Location = new System.Drawing.Point(165, 75);
+            this.txtCantidadX.Name = "txtCantidadX";
+            this.txtCantidadX.ReadOnly = true;
+            this.txtCantidadX.Size = new System.Drawing.Size(94, 26);
+            this.txtCantidadX.TabIndex = 11;
+            // 
+            // btnCambiar
+            // 
+            this.btnCambiar.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCambiar.Location = new System.Drawing.Point(395, 136);
+            this.btnCambiar.Name = "btnCambiar";
+            this.btnCambiar.Size = new System.Drawing.Size(122, 43);
+            this.btnCambiar.TabIndex = 2;
+            this.btnCambiar.Text = "Cambiar";
+            this.btnCambiar.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(7, 78);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(152, 20);
+            this.label9.TabIndex = 2;
+            this.label9.Text = "Cantidad disponible:";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(6, 45);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(147, 20);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "Desde la ubicación:";
             // 
             // groupBox4
             // 
@@ -433,6 +433,16 @@
             this.groupBox4.TabIndex = 12;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Movimiento";
+            // 
+            // btnSalida
+            // 
+            this.btnSalida.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSalida.Location = new System.Drawing.Point(416, 136);
+            this.btnSalida.Name = "btnSalida";
+            this.btnSalida.Size = new System.Drawing.Size(122, 43);
+            this.btnSalida.TabIndex = 19;
+            this.btnSalida.Text = "Salida";
+            this.btnSalida.UseVisualStyleBackColor = true;
             // 
             // txtCantidadMover
             // 
@@ -519,16 +529,6 @@
             this.txtUnidadMedida.Size = new System.Drawing.Size(94, 26);
             this.txtUnidadMedida.TabIndex = 16;
             // 
-            // btnSalida
-            // 
-            this.btnSalida.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSalida.Location = new System.Drawing.Point(416, 136);
-            this.btnSalida.Name = "btnSalida";
-            this.btnSalida.Size = new System.Drawing.Size(122, 43);
-            this.btnSalida.TabIndex = 19;
-            this.btnSalida.Text = "Salida";
-            this.btnSalida.UseVisualStyleBackColor = true;
-            // 
             // btnCancelar
             // 
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -563,6 +563,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "FormMovimientosRecursos";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Movimiento de Recursos";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -576,7 +577,6 @@
             this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion

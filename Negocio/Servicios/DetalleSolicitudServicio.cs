@@ -9,22 +9,22 @@ using CentroAcopioApp.Utilidades;
 
 namespace CentroAcopioApp.Negocio.Servicios
 {
-    public class RecursoServicio
+    public class DetalleSolicitudServicio
     {
-        private readonly IRecursoRepositorio _repositorio;
+        private readonly IDetalleSolicitudRepositorio _repositorio;
 
-        public RecursoServicio(IRecursoRepositorio repositorio)
+        public DetalleSolicitudServicio(IDetalleSolicitudRepositorio repositorio)
         {
             _repositorio = repositorio;
         }
 
-        public IEnumerable<RecursoDto> ObtenerTodo()
+        public IEnumerable<DetalleSolicitudDto> ObtenerTodo()
         {
             var lista = _repositorio.ObtenerTodo();
             return FiltroRolHelper.FiltrarPorRol(lista);
         }
 
-        public RecursoDto ObtenerPorId(int id)
+        public DetalleSolicitudDto ObtenerPorId(int id)
         {
             if (id <= 0)
                 throw new ExcepcionValidacion("El ID debe ser mayor a cero.");
@@ -34,30 +34,34 @@ namespace CentroAcopioApp.Negocio.Servicios
             dto = FiltroRolHelper.FiltrarEntidadPorRol(dto);
 
             if (dto == null)
-                throw new ExcepcionServicio("No se encontró el recurso especificado.");
+                throw new ExcepcionServicio("No se encontró el detalle de solicitud especificado.");
 
             return dto;
         }
 
-        public IEnumerable<RecursoDto> BuscarPorNombre(string nombre)
+        public IEnumerable<DetalleSolicitudDto> BuscarPorSolicitud(int solicitudId)
         {
-            if (string.IsNullOrWhiteSpace(nombre))
-                throw new ExcepcionValidacion("Debe proporcionar un nombre para la búsqueda.");
+            if (solicitudId <= 0)
+                throw new ExcepcionValidacion("Debe proporcionar un ID de solicitud válido.");
 
-            return FiltroRolHelper.FiltrarPorRol(_repositorio.ObtenerPorNombre(nombre));
+            var lista = _repositorio.ObtenerPorSolicitud(solicitudId);
+
+            return FiltroRolHelper.FiltrarPorRol(lista);
         }
 
-        public IEnumerable<RecursoDto> BuscarPorTipo(int tipoId)
+        public IEnumerable<DetalleSolicitudDto> BuscarPorRecurso(int recursoId)
         {
-            if (tipoId <= 0)
-                throw new ExcepcionValidacion("Debe proporcionar un tipo de recurso válido.");
+            if (recursoId <= 0)
+                throw new ExcepcionValidacion("Debe proporcionar un ID de recurso válido.");
 
-            return FiltroRolHelper.FiltrarPorRol(_repositorio.ObtenerPorTipo(tipoId));
+            var lista = _repositorio.ObtenerPorRecurso(recursoId);
+
+            return FiltroRolHelper.FiltrarPorRol(lista);
         }
 
-        public int Crear(RecursoDto dto)
+        public int Crear(DetalleSolicitudDto dto)
         {
-            RecursoValidador.Validar(dto);
+            DetalleSolicitudValidador.Validar(dto);
 
             using (var tx = new TransaccionManager())
             {
@@ -68,9 +72,11 @@ namespace CentroAcopioApp.Negocio.Servicios
                     HistorialServicio.Registrar(
                         usuarioId: SesionActual.Instancia.UsuarioId,
                         accion: "Crear",
-                        entidad: "Recurso",
+                        entidad: "DetalleSolicitud",
                         entidadId: id,
-                        descripcion: $"Se creó un recurso: {dto.Nombre}."
+                        descripcion:
+                        $"Se creó el detalle de la solicitud {dto.SolicitudNombre} para " +
+                        $"el recurso {dto.RecursoNombre} (Cantidad solicitada: {dto.CantidadSolicitada})."
                     );
 
                     return id;
@@ -78,9 +84,9 @@ namespace CentroAcopioApp.Negocio.Servicios
             }
         }
 
-        public bool Actualizar(RecursoDto dto)
+        public bool Actualizar(DetalleSolicitudDto dto)
         {
-            RecursoValidador.Validar(dto);
+            DetalleSolicitudValidador.Validar(dto);
 
             using (var tx = new TransaccionManager())
             {
@@ -88,14 +94,17 @@ namespace CentroAcopioApp.Negocio.Servicios
                 {
                     var actualizado = _repositorio.Actualizar(dto);
                     if (!actualizado)
-                        throw new ExcepcionServicio("No se pudo actualizar el recurso.");
+                        throw new ExcepcionServicio("No se pudo actualizar el detalle de solicitud.");
 
                     HistorialServicio.Registrar(
                         usuarioId: SesionActual.Instancia.UsuarioId,
                         accion: "Actualizar",
-                        entidad: "Recurso",
+                        entidad: "DetalleSolicitud",
                         entidadId: dto.Id,
-                        descripcion: $"Se actualizó el recurso: {dto.Nombre}."
+                        descripcion:
+                        $"Se actualizó el detalle de la solicitud {dto.SolicitudNombre} para " +
+                        $"el recurso {dto.RecursoNombre} (Cantidad solicitada: {dto.CantidadSolicitada}, " +
+                        $"Entregada: {dto.CantidadEntregada})."
                     );
 
                     return actualizado;
@@ -114,14 +123,14 @@ namespace CentroAcopioApp.Negocio.Servicios
                 {
                     var eliminado = _repositorio.Eliminar(id);
                     if (!eliminado)
-                        throw new ExcepcionServicio("No se encontró el recurso para eliminar.");
+                        throw new ExcepcionServicio("No se encontró el detalle de solicitud para eliminar.");
 
                     HistorialServicio.Registrar(
                         usuarioId: SesionActual.Instancia.UsuarioId,
                         accion: "Eliminar",
-                        entidad: "Recurso",
+                        entidad: "DetalleSolicitud",
                         entidadId: id,
-                        descripcion: $"Se eliminó el recurso con ID {id}."
+                        descripcion: $"Se eliminó el detalle de solicitud con ID {id}."
                     );
 
                     return eliminado;
