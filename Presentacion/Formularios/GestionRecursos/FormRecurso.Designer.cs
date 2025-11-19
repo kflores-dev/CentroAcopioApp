@@ -1,4 +1,4 @@
-﻿namespace CentroAcopioApp.Presentacion.Formularios
+﻿namespace CentroAcopioApp.Presentacion.Formularios.GestionRecursos
 {
     partial class FormRecurso
     {
@@ -117,6 +117,7 @@
             // 
             // cbBuscarCategoria
             // 
+            this.cbBuscarCategoria.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbBuscarCategoria.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbBuscarCategoria.FormattingEnabled = true;
             this.cbBuscarCategoria.Location = new System.Drawing.Point(462, 40);
@@ -200,6 +201,7 @@
             // 
             // cbTipoRecurso
             // 
+            this.cbTipoRecurso.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTipoRecurso.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbTipoRecurso.FormattingEnabled = true;
             this.cbTipoRecurso.Location = new System.Drawing.Point(82, 132);

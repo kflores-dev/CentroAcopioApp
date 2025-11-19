@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using CentroAcopioApp.Datos.Repositorios.Interfaces;
 using CentroAcopioApp.DTO;
 using CentroAcopioApp.Excepciones;
@@ -134,6 +136,49 @@ namespace CentroAcopioApp.Negocio.Servicios
                     return eliminado;
                 });
             }
+        }
+
+        public bool TraspasarRecurso(int recursoId, int ubicacionOrigenId, int ubicacionDestinoId, decimal cantidad)
+        {
+            if (cantidad <= 0)
+                throw new ArgumentException("La cantidad a mover debe ser mayor que cero.");
+
+            // Usar el método del servicio para obtener ubicaciones del recurso
+            var origen = BuscarPorRecurso(recursoId)
+                .FirstOrDefault(r => r.UbicacionId == ubicacionOrigenId);
+
+            if (origen == null)
+                throw new InvalidOperationException("No se encontró la ubicación origen.");
+
+            if (origen.Cantidad < cantidad)
+                throw new InvalidOperationException("No hay suficiente cantidad en la ubicación origen.");
+
+            // Usar el método del servicio para buscar destino
+            var destino = BuscarPorRecurso(recursoId)
+                .FirstOrDefault(r => r.UbicacionId == ubicacionDestinoId);
+
+            // Restar del origen usando Actualizar()
+            origen.Cantidad -= cantidad;
+            Actualizar(origen);
+
+            // Sumar al destino o crear si no existe
+            if (destino != null)
+            {
+                destino.Cantidad += cantidad;
+                Actualizar(destino);
+            }
+            else
+            {
+                Crear(new RecursoUbicacionDto
+                {
+                    RecursoId = recursoId,
+                    UbicacionId = ubicacionDestinoId,
+                    Cantidad = cantidad,
+                    Vigencia = 'A'
+                });
+            }
+
+            return true;
         }
     }
 }

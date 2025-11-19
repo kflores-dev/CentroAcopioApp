@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CentroAcopioApp.Presentacion.Formularios
+namespace CentroAcopioApp.Presentacion.Formularios.GestionRecursos
 {
     public partial class FormMenuGestionRecursos : Form
     {
@@ -32,6 +25,18 @@ namespace CentroAcopioApp.Presentacion.Formularios
         private void btnCerrar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void btnTiposRecursos_Click(object sender, EventArgs e)
+        {
+            FormTipoRecurso tipo = new FormTipoRecurso();
+            tipo.ShowDialog();
+        }
+
+        private void btnUbicacionRecursos_Click(object sender, EventArgs e)
+        {
+            FormRecursoUbicacion formito = new FormRecursoUbicacion();
+            formito.ShowDialog();
         }
     }
 }

@@ -7,6 +7,7 @@ using CentroAcopioApp.DTO;
 using CentroAcopioApp.Excepciones;
 using CentroAcopioApp.Negocio.Servicios;
 using CentroAcopioApp.Presentacion.Formularios;
+using CentroAcopioApp.Presentacion.Formularios.GestionRecursos;
 
 namespace CentroAcopioApp
 {

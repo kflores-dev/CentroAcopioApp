@@ -91,7 +91,7 @@ namespace CentroAcopioApp.Datos.Repositorios.Implementaciones
         public int Insertar(TipoRecursoDto dto)
         {
             var consulta = @"INSERT INTO tipo_recurso (nombre, vigencia)
-                        VALUES (@Nombre);
+                        VALUES (@Nombre, @Vigencia);
                         SELECT SCOPE_IDENTITY();";
 
             try
@@ -100,6 +100,7 @@ namespace CentroAcopioApp.Datos.Repositorios.Implementaciones
                 using (var cmd = DbConexion.CrearComando(conn, consulta))
                 {
                     cmd.Parameters.AddWithValue("@Nombre", dto.Nombre);
+                    cmd.Parameters.AddWithValue("@Vigencia", dto.Vigencia);
 
                     conn.Open();
                     var result = cmd.ExecuteScalar();

@@ -1,4 +1,4 @@
-﻿namespace CentroAcopioApp.Presentacion.Formularios
+﻿namespace CentroAcopioApp.Presentacion.Formularios.GestionRecursos
 {
     partial class FormMovimientosRecursos
     {
@@ -32,12 +32,12 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnLimpiarBuscarRecursos = new System.Windows.Forms.Button();
             this.btnBuscarRecursos = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cbTipoRecurso = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtBuscarNombreRecurso = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnUbicacionRecurso = new System.Windows.Forms.Button();
+            this.btnLimpiarUbicacion = new System.Windows.Forms.Button();
             this.btnBuscarUbicacionRecurso = new System.Windows.Forms.Button();
             this.cbBuscarUbicacion = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -50,13 +50,13 @@
             this.label8 = new System.Windows.Forms.Label();
             this.txtCantidadTotal = new System.Windows.Forms.TextBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtUbicacionX = new System.Windows.Forms.TextBox();
             this.txtCantidadCambiar = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.cbUbicacionY = new System.Windows.Forms.ComboBox();
             this.txtCantidadY = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.cbUbicacionX = new System.Windows.Forms.ComboBox();
             this.txtCantidadX = new System.Windows.Forms.TextBox();
             this.btnCambiar = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
@@ -95,7 +95,7 @@
             // 
             this.groupBox1.Controls.Add(this.btnLimpiarBuscarRecursos);
             this.groupBox1.Controls.Add(this.btnBuscarRecursos);
-            this.groupBox1.Controls.Add(this.comboBox1);
+            this.groupBox1.Controls.Add(this.cbTipoRecurso);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.txtBuscarNombreRecurso);
             this.groupBox1.Controls.Add(this.label2);
@@ -116,6 +116,7 @@
             this.btnLimpiarBuscarRecursos.TabIndex = 3;
             this.btnLimpiarBuscarRecursos.Text = "Limpiar";
             this.btnLimpiarBuscarRecursos.UseVisualStyleBackColor = true;
+            this.btnLimpiarBuscarRecursos.Click += new System.EventHandler(this.btnLimpiarBuscarRecursos_Click);
             // 
             // btnBuscarRecursos
             // 
@@ -126,15 +127,16 @@
             this.btnBuscarRecursos.TabIndex = 2;
             this.btnBuscarRecursos.Text = "Buscar";
             this.btnBuscarRecursos.UseVisualStyleBackColor = true;
+            this.btnBuscarRecursos.Click += new System.EventHandler(this.btnBuscarRecursos_Click);
             // 
-            // comboBox1
+            // cbTipoRecurso
             // 
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(290, 42);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(150, 28);
-            this.comboBox1.TabIndex = 3;
+            this.cbTipoRecurso.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbTipoRecurso.FormattingEnabled = true;
+            this.cbTipoRecurso.Location = new System.Drawing.Point(290, 42);
+            this.cbTipoRecurso.Name = "cbTipoRecurso";
+            this.cbTipoRecurso.Size = new System.Drawing.Size(150, 28);
+            this.cbTipoRecurso.TabIndex = 3;
             // 
             // label3
             // 
@@ -166,7 +168,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.btnUbicacionRecurso);
+            this.groupBox2.Controls.Add(this.btnLimpiarUbicacion);
             this.groupBox2.Controls.Add(this.btnBuscarUbicacionRecurso);
             this.groupBox2.Controls.Add(this.cbBuscarUbicacion);
             this.groupBox2.Controls.Add(this.label4);
@@ -178,15 +180,16 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Buscar ubicacion";
             // 
-            // btnUbicacionRecurso
+            // btnLimpiarUbicacion
             // 
-            this.btnUbicacionRecurso.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUbicacionRecurso.Location = new System.Drawing.Point(409, 33);
-            this.btnUbicacionRecurso.Name = "btnUbicacionRecurso";
-            this.btnUbicacionRecurso.Size = new System.Drawing.Size(122, 43);
-            this.btnUbicacionRecurso.TabIndex = 3;
-            this.btnUbicacionRecurso.Text = "Limpiar";
-            this.btnUbicacionRecurso.UseVisualStyleBackColor = true;
+            this.btnLimpiarUbicacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLimpiarUbicacion.Location = new System.Drawing.Point(409, 33);
+            this.btnLimpiarUbicacion.Name = "btnLimpiarUbicacion";
+            this.btnLimpiarUbicacion.Size = new System.Drawing.Size(122, 43);
+            this.btnLimpiarUbicacion.TabIndex = 3;
+            this.btnLimpiarUbicacion.Text = "Limpiar";
+            this.btnLimpiarUbicacion.UseVisualStyleBackColor = true;
+            this.btnLimpiarUbicacion.Click += new System.EventHandler(this.btnLimpiarUbicacion_Click);
             // 
             // btnBuscarUbicacionRecurso
             // 
@@ -197,6 +200,7 @@
             this.btnBuscarUbicacionRecurso.TabIndex = 2;
             this.btnBuscarUbicacionRecurso.Text = "Buscar";
             this.btnBuscarUbicacionRecurso.UseVisualStyleBackColor = true;
+            this.btnBuscarUbicacionRecurso.Click += new System.EventHandler(this.btnBuscarUbicacionRecurso_Click);
             // 
             // cbBuscarUbicacion
             // 
@@ -235,6 +239,7 @@
             this.dgvRecursos.ReadOnly = true;
             this.dgvRecursos.Size = new System.Drawing.Size(635, 344);
             this.dgvRecursos.TabIndex = 4;
+            this.dgvRecursos.SelectionChanged += new System.EventHandler(this.dgvRecursos_SelectionChanged);
             // 
             // dgvUbicacionRecurso
             // 
@@ -244,6 +249,7 @@
             this.dgvUbicacionRecurso.ReadOnly = true;
             this.dgvUbicacionRecurso.Size = new System.Drawing.Size(635, 344);
             this.dgvUbicacionRecurso.TabIndex = 5;
+            this.dgvUbicacionRecurso.SelectionChanged += new System.EventHandler(this.dgvUbicacionRecurso_SelectionChanged);
             // 
             // label6
             // 
@@ -270,6 +276,7 @@
             this.txtRecursoSeleccionado.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRecursoSeleccionado.Location = new System.Drawing.Point(236, 544);
             this.txtRecursoSeleccionado.Name = "txtRecursoSeleccionado";
+            this.txtRecursoSeleccionado.ReadOnly = true;
             this.txtRecursoSeleccionado.Size = new System.Drawing.Size(232, 26);
             this.txtRecursoSeleccionado.TabIndex = 8;
             // 
@@ -288,18 +295,19 @@
             this.txtCantidadTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCantidadTotal.Location = new System.Drawing.Point(623, 544);
             this.txtCantidadTotal.Name = "txtCantidadTotal";
+            this.txtCantidadTotal.ReadOnly = true;
             this.txtCantidadTotal.Size = new System.Drawing.Size(151, 26);
             this.txtCantidadTotal.TabIndex = 10;
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.txtUbicacionX);
             this.groupBox3.Controls.Add(this.txtCantidadCambiar);
             this.groupBox3.Controls.Add(this.label13);
             this.groupBox3.Controls.Add(this.cbUbicacionY);
             this.groupBox3.Controls.Add(this.txtCantidadY);
             this.groupBox3.Controls.Add(this.label11);
             this.groupBox3.Controls.Add(this.label12);
-            this.groupBox3.Controls.Add(this.cbUbicacionX);
             this.groupBox3.Controls.Add(this.txtCantidadX);
             this.groupBox3.Controls.Add(this.btnCambiar);
             this.groupBox3.Controls.Add(this.label9);
@@ -311,6 +319,15 @@
             this.groupBox3.TabIndex = 11;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Cambio de ubicación";
+            // 
+            // txtUbicacionX
+            // 
+            this.txtUbicacionX.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUbicacionX.Location = new System.Drawing.Point(159, 42);
+            this.txtUbicacionX.Name = "txtUbicacionX";
+            this.txtUbicacionX.ReadOnly = true;
+            this.txtUbicacionX.Size = new System.Drawing.Size(196, 26);
+            this.txtUbicacionX.TabIndex = 19;
             // 
             // txtCantidadCambiar
             // 
@@ -338,6 +355,7 @@
             this.cbUbicacionY.Name = "cbUbicacionY";
             this.cbUbicacionY.Size = new System.Drawing.Size(188, 28);
             this.cbUbicacionY.TabIndex = 16;
+            this.cbUbicacionY.SelectedIndexChanged += new System.EventHandler(this.cbUbicacionY_SelectedIndexChanged);
             // 
             // txtCantidadY
             // 
@@ -368,15 +386,6 @@
             this.label12.TabIndex = 13;
             this.label12.Text = "Hasta la ubicación:";
             // 
-            // cbUbicacionX
-            // 
-            this.cbUbicacionX.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbUbicacionX.FormattingEnabled = true;
-            this.cbUbicacionX.Location = new System.Drawing.Point(151, 42);
-            this.cbUbicacionX.Name = "cbUbicacionX";
-            this.cbUbicacionX.Size = new System.Drawing.Size(204, 28);
-            this.cbUbicacionX.TabIndex = 12;
-            // 
             // txtCantidadX
             // 
             this.txtCantidadX.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -395,6 +404,7 @@
             this.btnCambiar.TabIndex = 2;
             this.btnCambiar.Text = "Cambiar";
             this.btnCambiar.UseVisualStyleBackColor = true;
+            this.btnCambiar.Click += new System.EventHandler(this.btnCambiar_Click);
             // 
             // label9
             // 
@@ -563,8 +573,8 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "FormMovimientosRecursos";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Movimiento de Recursos";
+            this.Load += new System.EventHandler(this.FormMovimientosRecursos_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -579,18 +589,20 @@
             this.PerformLayout();
         }
 
+        private System.Windows.Forms.TextBox txtUbicacionX;
+
         #endregion
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cbTipoRecurso;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtBuscarNombreRecurso;
         private System.Windows.Forms.Button btnBuscarRecursos;
         private System.Windows.Forms.Button btnLimpiarBuscarRecursos;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button btnUbicacionRecurso;
+        private System.Windows.Forms.Button btnLimpiarUbicacion;
         private System.Windows.Forms.Button btnBuscarUbicacionRecurso;
         private System.Windows.Forms.ComboBox cbBuscarUbicacion;
         private System.Windows.Forms.Label label4;
@@ -610,7 +622,6 @@
         private System.Windows.Forms.TextBox txtCantidadY;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.ComboBox cbUbicacionX;
         private System.Windows.Forms.TextBox txtCantidadX;
         private System.Windows.Forms.TextBox txtCantidadCambiar;
         private System.Windows.Forms.Label label13;

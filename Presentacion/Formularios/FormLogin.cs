@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using CentroAcopioApp.Datos.Repositorios.Interfaces;
 using CentroAcopioApp.Excepciones;
@@ -34,7 +27,7 @@ namespace CentroAcopioApp.Presentacion.Formularios
                 _authServicio.Login(username, password);
 
                 // Abrir el menú como ventana modal
-                using (FormMenuGestionRecursos menuForm = new FormMenuGestionRecursos())
+                using (FormPrincipal menuForm = new FormPrincipal())
                 {
                     // Ocultar el login mientras el menú está abierto
                     this.Hide();
