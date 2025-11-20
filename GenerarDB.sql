@@ -10,11 +10,15 @@ DATABASE centro_acopio;
 END
 GO
 
--- 2. Crear login si no existe
-IF NOT EXISTS (SELECT name FROM sys.server_principals WHERE name = N'centro_user')
+-- 2. Crear o actualizar el LOGIN con la contraseña correcta
+------------------------------------------------------------
+IF EXISTS (SELECT 1 FROM sys.server_principals WHERE name = N'centro_user')
 BEGIN
-    CREATE
-LOGIN centro_user WITH PASSWORD = 'pHlUyjA4jn6QKA';
+    ALTER LOGIN centro_user WITH PASSWORD = 'pHlUyjA4jn6QKA';
+END
+ELSE
+BEGIN
+    CREATE LOGIN centro_user WITH PASSWORD = 'pHlUyjA4jn6QKA';
 END
 GO
 
