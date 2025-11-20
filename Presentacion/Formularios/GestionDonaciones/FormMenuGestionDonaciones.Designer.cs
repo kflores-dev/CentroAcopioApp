@@ -36,6 +36,7 @@ namespace CentroAcopioApp.Presentacion.Formularios.GestionDonaciones
             this.btnDonaciones = new System.Windows.Forms.Button();
             this.btnProveedor = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnAsignarRecursosDonacion = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnDetalleDonacion
@@ -47,6 +48,7 @@ namespace CentroAcopioApp.Presentacion.Formularios.GestionDonaciones
             this.btnDetalleDonacion.TabIndex = 10;
             this.btnDetalleDonacion.Text = "Detalles de las donaciones";
             this.btnDetalleDonacion.UseVisualStyleBackColor = true;
+            this.btnDetalleDonacion.Click += new System.EventHandler(this.btnDetalleDonacion_Click);
             // 
             // btnCerrar
             // 
@@ -57,6 +59,7 @@ namespace CentroAcopioApp.Presentacion.Formularios.GestionDonaciones
             this.btnCerrar.TabIndex = 9;
             this.btnCerrar.Text = "Cerrar";
             this.btnCerrar.UseVisualStyleBackColor = true;
+            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
             // 
             // btnDonaciones
             // 
@@ -67,6 +70,7 @@ namespace CentroAcopioApp.Presentacion.Formularios.GestionDonaciones
             this.btnDonaciones.TabIndex = 8;
             this.btnDonaciones.Text = "Donaciones";
             this.btnDonaciones.UseVisualStyleBackColor = true;
+            this.btnDonaciones.Click += new System.EventHandler(this.btnDonaciones_Click);
             // 
             // btnProveedor
             // 
@@ -77,6 +81,7 @@ namespace CentroAcopioApp.Presentacion.Formularios.GestionDonaciones
             this.btnProveedor.TabIndex = 7;
             this.btnProveedor.Text = "Proveedores";
             this.btnProveedor.UseVisualStyleBackColor = true;
+            this.btnProveedor.Click += new System.EventHandler(this.btnProveedor_Click);
             // 
             // label1
             // 
@@ -88,11 +93,23 @@ namespace CentroAcopioApp.Presentacion.Formularios.GestionDonaciones
             this.label1.TabIndex = 6;
             this.label1.Text = "Gestion de donaciones";
             // 
+            // btnAsignarRecursosDonacion
+            // 
+            this.btnAsignarRecursosDonacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAsignarRecursosDonacion.Location = new System.Drawing.Point(120, 292);
+            this.btnAsignarRecursosDonacion.Name = "btnAsignarRecursosDonacion";
+            this.btnAsignarRecursosDonacion.Size = new System.Drawing.Size(252, 61);
+            this.btnAsignarRecursosDonacion.TabIndex = 11;
+            this.btnAsignarRecursosDonacion.Text = "Asignar recursos a donaciones";
+            this.btnAsignarRecursosDonacion.UseVisualStyleBackColor = true;
+            this.btnAsignarRecursosDonacion.Click += new System.EventHandler(this.btnAsignarRecursosDonacion_Click);
+            // 
             // FormMenuGestionDonaciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(487, 457);
+            this.Controls.Add(this.btnAsignarRecursosDonacion);
             this.Controls.Add(this.btnDetalleDonacion);
             this.Controls.Add(this.btnCerrar);
             this.Controls.Add(this.btnDonaciones);
@@ -103,6 +120,8 @@ namespace CentroAcopioApp.Presentacion.Formularios.GestionDonaciones
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Button btnAsignarRecursosDonacion;
 
         private System.Windows.Forms.Button btnDetalleDonacion;
         private System.Windows.Forms.Button btnCerrar;

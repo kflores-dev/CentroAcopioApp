@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace CentroAcopioApp.Presentacion.Formularios.GestionRecursos
 {
-    public partial class FormMenuGestionRecursos : Form
+    public partial class FormMenuGestionRecursos : BaseForm
     {
         public FormMenuGestionRecursos()
         {

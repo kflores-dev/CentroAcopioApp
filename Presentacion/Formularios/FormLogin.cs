@@ -6,7 +6,7 @@ using CentroAcopioApp.Negocio.Servicios;
 
 namespace CentroAcopioApp.Presentacion.Formularios
 {
-    public partial class FormLogin : Form
+    public partial class FormLogin : BaseForm
     {
         private readonly AutenticacionServicio _authServicio;
 

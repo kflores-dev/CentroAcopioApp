@@ -131,11 +131,35 @@
     <Compile Include="Presentacion\Formularios\FormPrincipal.Designer.cs">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentacion\Formularios\GestionDonaciones\FormAsignarRecursosDonacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Formularios\GestionDonaciones\FormAsignarRecursosDonacion.Designer.cs">
+      <DependentUpon>FormAsignarRecursosDonacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Formularios\GestionDonaciones\FormDetalleDonacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Formularios\GestionDonaciones\FormDetalleDonacion.Designer.cs">
+      <DependentUpon>FormDetalleDonacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Formularios\GestionDonaciones\FormDonacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Formularios\GestionDonaciones\FormDonacion.Designer.cs">
+      <DependentUpon>FormDonacion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentacion\Formularios\GestionDonaciones\FormMenuGestionDonaciones.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Presentacion\Formularios\GestionDonaciones\FormMenuGestionDonaciones.Designer.cs">
       <DependentUpon>FormMenuGestionDonaciones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Formularios\GestionDonaciones\FormProveedor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Formularios\GestionDonaciones\FormProveedor.Designer.cs">
+      <DependentUpon>FormProveedor.cs</DependentUpon>
     </Compile>
     <Compile Include="Presentacion\Formularios\GestionRecursos\FormMenuGestionRecursos.cs">
       <SubType>Form</SubType>
@@ -167,6 +191,60 @@
     <Compile Include="Presentacion\Formularios\GestionRecursos\FormTipoRecurso.Designer.cs">
       <DependentUpon>FormTipoRecurso.cs</DependentUpon>
     </Compile>
+    <Compile Include="Presentacion\Formularios\GestionReportes\FormMenuReportes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Formularios\GestionReportes\FormMenuReportes.Designer.cs">
+      <DependentUpon>FormMenuReportes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Formularios\GestionSolicitudes\FormAsignarRecursosSolicitud.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Formularios\GestionSolicitudes\FormAsignarRecursosSolicitud.Designer.cs">
+      <DependentUpon>FormAsignarRecursosSolicitud.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Formularios\GestionSolicitudes\FormAtencionSolicitudes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Formularios\GestionSolicitudes\FormAtencionSolicitudes.Designer.cs">
+      <DependentUpon>FormAtencionSolicitudes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Formularios\GestionSolicitudes\FormDetalleSolicitud.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Formularios\GestionSolicitudes\FormDetalleSolicitud.Designer.cs">
+      <DependentUpon>FormDetalleSolicitud.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Formularios\GestionSolicitudes\FormMenuGestionSolicitudes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Formularios\GestionSolicitudes\FormMenuGestionSolicitudes.Designer.cs">
+      <DependentUpon>FormMenuGestionSolicitudes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Formularios\GestionSolicitudes\FormSolicitudes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Formularios\GestionSolicitudes\FormSolicitudes.Designer.cs">
+      <DependentUpon>FormSolicitudes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Formularios\GestionUbicacion\FormUbicacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Formularios\GestionUbicacion\FormUbicacion.Designer.cs">
+      <DependentUpon>FormUbicacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Formularios\GestionUsuario\FormHistorial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Formularios\GestionUsuario\FormHistorial.Designer.cs">
+      <DependentUpon>FormHistorial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presentacion\Formularios\GestionUsuario\FormUsuario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Formularios\GestionUsuario\FormUsuario.Designer.cs">
+      <DependentUpon>FormUsuario.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilidades\FiltroRolHelper.cs" />
@@ -176,8 +254,20 @@
     <EmbeddedResource Include="Presentacion\Formularios\FormPrincipal.resx">
       <DependentUpon>FormPrincipal.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Formularios\GestionDonaciones\FormAsignarRecursosDonacion.resx">
+      <DependentUpon>FormAsignarRecursosDonacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Formularios\GestionDonaciones\FormDetalleDonacion.resx">
+      <DependentUpon>FormDetalleDonacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Formularios\GestionDonaciones\FormDonacion.resx">
+      <DependentUpon>FormDonacion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Formularios\GestionDonaciones\FormMenuGestionDonaciones.resx">
       <DependentUpon>FormMenuGestionDonaciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Formularios\GestionDonaciones\FormProveedor.resx">
+      <DependentUpon>FormProveedor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Formularios\GestionRecursos\FormMenuGestionRecursos.resx">
       <DependentUpon>FormMenuGestionRecursos.cs</DependentUpon>
@@ -193,6 +283,33 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Formularios\GestionRecursos\FormTipoRecurso.resx">
       <DependentUpon>FormTipoRecurso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Formularios\GestionReportes\FormMenuReportes.resx">
+      <DependentUpon>FormMenuReportes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Formularios\GestionSolicitudes\FormAsignarRecursosSolicitud.resx">
+      <DependentUpon>FormAsignarRecursosSolicitud.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Formularios\GestionSolicitudes\FormAtencionSolicitudes.resx">
+      <DependentUpon>FormAtencionSolicitudes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Formularios\GestionSolicitudes\FormDetalleSolicitud.resx">
+      <DependentUpon>FormDetalleSolicitud.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Formularios\GestionSolicitudes\FormMenuGestionSolicitudes.resx">
+      <DependentUpon>FormMenuGestionSolicitudes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Formularios\GestionSolicitudes\FormSolicitudes.resx">
+      <DependentUpon>FormSolicitudes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Formularios\GestionUbicacion\FormUbicacion.resx">
+      <DependentUpon>FormUbicacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Formularios\GestionUsuario\FormHistorial.resx">
+      <DependentUpon>FormHistorial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presentacion\Formularios\GestionUsuario\FormUsuario.resx">
+      <DependentUpon>FormUsuario.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -218,8 +335,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Presentacion\Controladores\" />
-    <Folder Include="Presentacion\Formularios\GestionSolicitudes\" />
-    <Folder Include="Presentacion\Formularios\Ubicaciones\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

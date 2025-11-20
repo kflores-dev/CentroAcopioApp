@@ -40,9 +40,9 @@ namespace CentroAcopioApp.Presentacion.Formularios
             this.btnGestionSolicitudes = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.btnUbicaciones = new System.Windows.Forms.Button();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lbUsuarios = new System.Windows.Forms.Label();
             this.btnUsuarios = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
+            this.lbHistorial = new System.Windows.Forms.Label();
             this.btnHistorial = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.btnReportes = new System.Windows.Forms.Button();
@@ -123,6 +123,7 @@ namespace CentroAcopioApp.Presentacion.Formularios
             this.btnGestionSolicitudes.Size = new System.Drawing.Size(89, 94);
             this.btnGestionSolicitudes.TabIndex = 4;
             this.btnGestionSolicitudes.UseVisualStyleBackColor = true;
+            this.btnGestionSolicitudes.Click += new System.EventHandler(this.btnGestionSolicitudes_Click);
             // 
             // label4
             // 
@@ -145,17 +146,18 @@ namespace CentroAcopioApp.Presentacion.Formularios
             this.btnUbicaciones.Size = new System.Drawing.Size(89, 94);
             this.btnUbicaciones.TabIndex = 6;
             this.btnUbicaciones.UseVisualStyleBackColor = true;
+            this.btnUbicaciones.Click += new System.EventHandler(this.btnUbicaciones_Click);
             // 
-            // label5
+            // lbUsuarios
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(832, 525);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(91, 24);
-            this.label5.TabIndex = 15;
-            this.label5.Text = "Usuarios";
+            this.lbUsuarios.AutoSize = true;
+            this.lbUsuarios.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbUsuarios.Location = new System.Drawing.Point(832, 525);
+            this.lbUsuarios.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbUsuarios.Name = "lbUsuarios";
+            this.lbUsuarios.Size = new System.Drawing.Size(91, 24);
+            this.lbUsuarios.TabIndex = 15;
+            this.lbUsuarios.Text = "Usuarios";
             // 
             // btnUsuarios
             // 
@@ -167,17 +169,18 @@ namespace CentroAcopioApp.Presentacion.Formularios
             this.btnUsuarios.Size = new System.Drawing.Size(89, 94);
             this.btnUsuarios.TabIndex = 14;
             this.btnUsuarios.UseVisualStyleBackColor = true;
+            this.btnUsuarios.Click += new System.EventHandler(this.btnUsuarios_Click);
             // 
-            // label6
+            // lbHistorial
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(618, 525);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(85, 24);
-            this.label6.TabIndex = 13;
-            this.label6.Text = "Historial";
+            this.lbHistorial.AutoSize = true;
+            this.lbHistorial.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbHistorial.Location = new System.Drawing.Point(618, 525);
+            this.lbHistorial.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lbHistorial.Name = "lbHistorial";
+            this.lbHistorial.Size = new System.Drawing.Size(85, 24);
+            this.lbHistorial.TabIndex = 13;
+            this.lbHistorial.Text = "Historial";
             // 
             // btnHistorial
             // 
@@ -189,6 +192,7 @@ namespace CentroAcopioApp.Presentacion.Formularios
             this.btnHistorial.Size = new System.Drawing.Size(89, 94);
             this.btnHistorial.TabIndex = 12;
             this.btnHistorial.UseVisualStyleBackColor = true;
+            this.btnHistorial.Click += new System.EventHandler(this.btnHistorial_Click);
             // 
             // label7
             // 
@@ -211,6 +215,7 @@ namespace CentroAcopioApp.Presentacion.Formularios
             this.btnReportes.Size = new System.Drawing.Size(89, 94);
             this.btnReportes.TabIndex = 10;
             this.btnReportes.UseVisualStyleBackColor = true;
+            this.btnReportes.Click += new System.EventHandler(this.btnReportes_Click);
             // 
             // label8
             // 
@@ -305,9 +310,9 @@ namespace CentroAcopioApp.Presentacion.Formularios
             this.Controls.Add(this.label10);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.lbUsuarios);
             this.Controls.Add(this.btnUsuarios);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.lbHistorial);
             this.Controls.Add(this.btnHistorial);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.btnReportes);
@@ -341,9 +346,9 @@ namespace CentroAcopioApp.Presentacion.Formularios
         private System.Windows.Forms.Button btnGestionSolicitudes;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnUbicaciones;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lbUsuarios;
         private System.Windows.Forms.Button btnUsuarios;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label lbHistorial;
         private System.Windows.Forms.Button btnHistorial;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Button btnReportes;

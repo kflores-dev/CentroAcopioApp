@@ -3,6 +3,10 @@ using System.Windows.Forms;
 using CentroAcopioApp.Negocio.Seguridad;
 using CentroAcopioApp.Presentacion.Formularios.GestionDonaciones;
 using CentroAcopioApp.Presentacion.Formularios.GestionRecursos;
+using CentroAcopioApp.Presentacion.Formularios.GestionReportes;
+using CentroAcopioApp.Presentacion.Formularios.GestionSolicitudes;
+using CentroAcopioApp.Presentacion.Formularios.GestionUbicacion;
+using CentroAcopioApp.Presentacion.Formularios.GestionUsuario;
 
 namespace CentroAcopioApp.Presentacion.Formularios
 {
@@ -21,6 +25,15 @@ namespace CentroAcopioApp.Presentacion.Formularios
             else lbRol.Text = "Operador";
         }
 
+        private void CargarPermisos()
+        {
+            if (!SesionActual.Instancia.EsOperador()) return;
+            btnUsuarios.Visible = false;
+            btnHistorial.Visible = false;
+            lbHistorial.Visible = false;
+            lbUsuarios.Visible = false;
+        }
+
         private void btnGestionRecursos_Click(object sender, EventArgs e)
         {
             FormMenuGestionRecursos formito = new FormMenuGestionRecursos();
@@ -30,6 +43,7 @@ namespace CentroAcopioApp.Presentacion.Formularios
         private void FormPrincipal_Load(object sender, EventArgs e)
         {
             CargarDatosUsuario();
+            CargarPermisos();
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
@@ -41,6 +55,36 @@ namespace CentroAcopioApp.Presentacion.Formularios
         {
             FormMenuGestionDonaciones formito = new FormMenuGestionDonaciones();
             formito.ShowDialog();
+        }
+
+        private void btnUbicaciones_Click(object sender, EventArgs e)
+        {
+            FormUbicacion f = new FormUbicacion();
+            f.ShowDialog();
+        }
+
+        private void btnUsuarios_Click(object sender, EventArgs e)
+        {
+            FormUsuario f = new FormUsuario();
+            f.ShowDialog();
+        }
+
+        private void btnHistorial_Click(object sender, EventArgs e)
+        {
+            FormHistorial f = new FormHistorial();
+            f.ShowDialog();
+        }
+
+        private void btnGestionSolicitudes_Click(object sender, EventArgs e)
+        {
+            FormMenuGestionSolicitudes f = new FormMenuGestionSolicitudes();
+            f.ShowDialog();
+        }
+
+        private void btnReportes_Click(object sender, EventArgs e)
+        {
+            FormMenuReportes f = new FormMenuReportes();
+            f.ShowDialog();
         }
     }
 }
