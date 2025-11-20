@@ -1,17 +1,20 @@
-USE [master];
+USE
+[master];
 GO
 
 -- 1. Crear base de datos si no existe
 IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = N'centro_acopio')
 BEGIN
-    CREATE DATABASE centro_acopio;
+    CREATE
+DATABASE centro_acopio;
 END
 GO
 
 -- 2. Crear login si no existe
 IF NOT EXISTS (SELECT name FROM sys.server_principals WHERE name = N'centro_user')
 BEGIN
-    CREATE LOGIN centro_user WITH PASSWORD = 'ContraseñaSegura123!';
+    CREATE
+LOGIN centro_user WITH PASSWORD = 'pHlUyjA4jn6QKA';
 END
 GO
 
@@ -21,12 +24,15 @@ GO
 
 IF NOT EXISTS (SELECT name FROM sys.database_principals WHERE name = N'centro_user')
 BEGIN
-    CREATE USER centro_user FOR LOGIN centro_user;
+    CREATE
+USER centro_user FOR LOGIN centro_user;
 END
 GO
 
-ALTER ROLE db_datareader ADD MEMBER centro_user;
-ALTER ROLE db_datawriter ADD MEMBER centro_user;
+ALTER
+ROLE db_datareader ADD MEMBER centro_user;
+ALTER
+ROLE db_datawriter ADD MEMBER centro_user;
 GO
 
 -- 4. Crear tablas con esquema dbo
@@ -35,7 +41,7 @@ CREATE TABLE dbo.proveedor
     id        INT IDENTITY PRIMARY KEY,
     nombre    NVARCHAR(100) NOT NULL,
     contacto  NVARCHAR(100) NOT NULL,
-    telefono  VARCHAR(30) NOT NULL,
+    telefono  VARCHAR(30)         NOT NULL,
     correo    VARCHAR(100),
     direccion NVARCHAR(100) NOT NULL,
     vigencia  CHAR(1) DEFAULT 'A' NOT NULL
@@ -45,8 +51,8 @@ GO
 CREATE TABLE dbo.donacion
 (
     id            INT IDENTITY PRIMARY KEY,
-    proveedor_id  INT NOT NULL FOREIGN KEY REFERENCES dbo.proveedor(id),
-    fecha         DATETIME2 NOT NULL,
+    proveedor_id  INT                 NOT NULL FOREIGN KEY REFERENCES dbo.proveedor(id),
+    fecha         DATETIME2           NOT NULL,
     observaciones NVARCHAR(MAX),
     vigencia      CHAR(1) DEFAULT 'A' NOT NULL
 );
@@ -57,12 +63,12 @@ CREATE TABLE dbo.solicitud
     id            INT IDENTITY PRIMARY KEY,
     nombre        NVARCHAR(100) NOT NULL,
     contacto      NVARCHAR(100) NOT NULL,
-    telefono      VARCHAR(30) NOT NULL,
+    telefono      VARCHAR(30)         NOT NULL,
     correo        VARCHAR(100),
     direccion     NVARCHAR(100) NOT NULL,
-    fecha         DATETIME2 NOT NULL,
-    estado        VARCHAR(20) NOT NULL,
-    prioridad     VARCHAR(20) NOT NULL,
+    fecha         DATETIME2           NOT NULL,
+    estado        VARCHAR(20)         NOT NULL,
+    prioridad     VARCHAR(20)         NOT NULL,
     observaciones NVARCHAR(MAX),
     vigencia      CHAR(1) DEFAULT 'A' NOT NULL
 );
@@ -80,8 +86,8 @@ CREATE TABLE dbo.recurso
 (
     id            INT IDENTITY PRIMARY KEY,
     nombre        NVARCHAR(100) NOT NULL,
-    tipo_id       INT NOT NULL FOREIGN KEY REFERENCES dbo.tipo_recurso(id),
-    unidad_medida VARCHAR(20) NOT NULL,
+    tipo_id       INT                 NOT NULL FOREIGN KEY REFERENCES dbo.tipo_recurso(id),
+    unidad_medida VARCHAR(20)         NOT NULL,
     vigencia      CHAR(1) DEFAULT 'A' NOT NULL
 );
 GO
@@ -89,10 +95,10 @@ GO
 CREATE TABLE dbo.detalle_solicitud
 (
     id                  INT IDENTITY PRIMARY KEY,
-    solicitud_id        INT NOT NULL FOREIGN KEY REFERENCES dbo.solicitud(id),
-    recurso_id          INT NOT NULL FOREIGN KEY REFERENCES dbo.recurso(id),
-    cantidad_solicitada DECIMAL(10, 2) NOT NULL,
-    cantidad_entregada  DECIMAL(10, 2) NOT NULL,
+    solicitud_id        INT                 NOT NULL FOREIGN KEY REFERENCES dbo.solicitud(id),
+    recurso_id          INT                 NOT NULL FOREIGN KEY REFERENCES dbo.recurso(id),
+    cantidad_solicitada DECIMAL(10, 2)      NOT NULL,
+    cantidad_entregada  DECIMAL(10, 2)      NOT NULL,
     vigencia            CHAR(1) DEFAULT 'A' NOT NULL
 );
 GO
@@ -109,10 +115,10 @@ GO
 CREATE TABLE dbo.detalle_donacion
 (
     id              INT IDENTITY PRIMARY KEY,
-    donacion_id     INT NOT NULL FOREIGN KEY REFERENCES dbo.donacion(id),
-    recurso_id      INT NOT NULL FOREIGN KEY REFERENCES dbo.recurso(id),
-    cantidad_donada DECIMAL(10, 2) NOT NULL,
-    ubicacion_id    INT NOT NULL FOREIGN KEY REFERENCES dbo.ubicacion(id),
+    donacion_id     INT                 NOT NULL FOREIGN KEY REFERENCES dbo.donacion(id),
+    recurso_id      INT                 NOT NULL FOREIGN KEY REFERENCES dbo.recurso(id),
+    cantidad_donada DECIMAL(10, 2)      NOT NULL,
+    ubicacion_id    INT                 NOT NULL FOREIGN KEY REFERENCES dbo.ubicacion(id),
     vigencia        CHAR(1) DEFAULT 'A' NOT NULL
 );
 GO
@@ -120,9 +126,9 @@ GO
 CREATE TABLE dbo.recurso_ubicacion
 (
     id           INT IDENTITY PRIMARY KEY,
-    recurso_id   INT NOT NULL FOREIGN KEY REFERENCES dbo.recurso(id),
-    ubicacion_id INT NOT NULL FOREIGN KEY REFERENCES dbo.ubicacion(id),
-    cantidad     DECIMAL(10, 2) NOT NULL,
+    recurso_id   INT                 NOT NULL FOREIGN KEY REFERENCES dbo.recurso(id),
+    ubicacion_id INT                 NOT NULL FOREIGN KEY REFERENCES dbo.ubicacion(id),
+    cantidad     DECIMAL(10, 2)      NOT NULL,
     vigencia     CHAR(1) DEFAULT 'A' NOT NULL
 );
 GO
@@ -131,9 +137,9 @@ CREATE TABLE dbo.usuario
 (
     id            INT IDENTITY PRIMARY KEY,
     nombre        NVARCHAR(100) NOT NULL,
-    username      VARCHAR(50) NOT NULL,
-    password_hash VARCHAR(255) NOT NULL,
-    rol           VARCHAR(20) NOT NULL,
+    username      VARCHAR(50)         NOT NULL,
+    password_hash VARCHAR(255)        NOT NULL,
+    rol           VARCHAR(20)         NOT NULL,
     email         VARCHAR(100),
     vigencia      CHAR(1) DEFAULT 'A' NOT NULL
 );
@@ -142,11 +148,11 @@ GO
 CREATE TABLE dbo.historial
 (
     id          INT IDENTITY PRIMARY KEY,
-    usuario_id  INT NOT NULL FOREIGN KEY REFERENCES dbo.usuario(id),
-    accion      VARCHAR(50) NOT NULL,
-    entidad     VARCHAR(50) NOT NULL,
-    entidad_id  INT NOT NULL,
-    fecha_hora  DATETIME2 NOT NULL,
+    usuario_id  INT                 NOT NULL FOREIGN KEY REFERENCES dbo.usuario(id),
+    accion      VARCHAR(50)         NOT NULL,
+    entidad     VARCHAR(50)         NOT NULL,
+    entidad_id  INT                 NOT NULL,
+    fecha_hora  DATETIME2           NOT NULL,
     descripcion NVARCHAR(255) NOT NULL,
     vigencia    CHAR(1) DEFAULT 'A' NOT NULL
 );
@@ -176,16 +182,8 @@ GO
 -- ================================
 INSERT INTO usuario (nombre, username, password_hash, rol, email)
 VALUES
-('Administrador General', 'admin', 'hash123', 'ADMIN', 'admin@centroacopio.org'),
-('María Rivera', 'mrivera', 'hash456', 'OPERADOR', 'mrivera@centroacopio.org'),
-('José Martínez', 'jmartinez', 'hash789', 'OPERADOR', 'jmartinez@centroacopio.org'),
-('Carla López', 'clopez', 'hash321', 'SUPERVISOR', 'clopez@centroacopio.org'),
-('Luis Torres', 'ltorres', 'hash654', 'OPERADOR', 'ltorres@centroacopio.org'),
-('Ana González', 'agonzalez', 'hash987', 'SUPERVISOR', 'agonzalez@centroacopio.org'),
-('Pedro Ramos', 'pramos', 'hash147', 'OPERADOR', 'pramos@centroacopio.org'),
-('Silvia Cruz', 'scruz', 'hash258', 'OPERADOR', 'scruz@centroacopio.org'),
-('Roberto Mejía', 'rmejia', 'hash369', 'ADMIN', 'rmejia@centroacopio.org'),
-('Claudia Flores', 'cflores', 'hash741', 'OPERADOR', 'cflores@centroacopio.org');
+('Administrador General', 'sa', 'JAvlGPq9JyTdtvBO6x2llnRI1+gxwIyPqCKAn3THIKk=', 'ADMIN', 'usuario.admin@ejemplo.com'),
+('Usuario Operador', 'oper', 'FyUWXJoLNpij0BAW4NggUVWCC41/IYNcpkwPgcco2IA=', 'OPERADOR', 'usuario.operador@ejemplo.com');
 GO
 
 -- ================================
@@ -385,31 +383,6 @@ VALUES
 (20, 9, 180.00);
 GO
 
--- =========================================
--- TABLA: historial (20 registros)
--- =========================================
-INSERT INTO historial (usuario_id, accion, entidad, entidad_id, fecha_hora, descripcion)
-VALUES
-(1, 'INSERT', 'donacion', 1, '2025-10-01 10:00', 'Se registró una nueva donación'),
-(2, 'UPDATE', 'donacion', 2, '2025-10-03 11:00', 'Se actualizó la observación'),
-(3, 'INSERT', 'solicitud', 1, '2025-10-02 09:30', 'Nueva solicitud creada'),
-(4, 'INSERT', 'solicitud', 2, '2025-10-03 14:00', 'Solicitud completada'),
-(5, 'INSERT', 'detalle_solicitud', 1, '2025-10-04 08:30', 'Detalle agregado a solicitud'),
-(6, 'UPDATE', 'detalle_donacion', 3, '2025-10-05 16:45', 'Actualización de cantidad donada'),
-(7, 'INSERT', 'recurso', 1, '2025-10-06 12:10', 'Nuevo recurso creado'),
-(8, 'UPDATE', 'recurso', 3, '2025-10-07 09:00', 'Actualización de unidad de medida'),
-(9, 'INSERT', 'usuario', 10, '2025-10-08 10:15', 'Nuevo usuario registrado'),
-(10, 'DELETE', 'solicitud', 5, '2025-10-09 13:30', 'Solicitud cancelada'),
-(1, 'INSERT', 'donacion', 10, '2025-10-10 11:45', 'Ingreso de nueva donación'),
-(2, 'UPDATE', 'detalle_donacion', 5, '2025-10-11 15:20', 'Actualización de stock'),
-(3, 'INSERT', 'historial', 3, '2025-10-12 17:40', 'Nuevo registro de auditoría'),
-(4, 'INSERT', 'solicitud', 12, '2025-10-13 18:50', 'Solicitud pendiente creada'),
-(5, 'UPDATE', 'detalle_solicitud', 4, '2025-10-14 09:10', 'Entrega parcial'),
-(6, 'INSERT', 'recurso_ubicacion', 7, '2025-10-15 12:30', 'Se actualizó inventario'),
-(7, 'UPDATE', 'recurso_ubicacion', 5, '2025-10-16 14:20', 'Recuento de stock'),
-(8, 'INSERT', 'usuario', 9, '2025-10-17 16:00', 'Nuevo operador agregado'),
-(9, 'UPDATE', 'donacion', 15, '2025-10-18 08:00', 'Revisión de entrega completada'),
-(10, 'INSERT', 'historial', 20, '2025-10-19 10:30', 'Entrada automática del sistema');
-GO
+
 
 
