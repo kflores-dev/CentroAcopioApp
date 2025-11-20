@@ -86,5 +86,16 @@ namespace CentroAcopioApp.Presentacion.Formularios
             FormMenuReportes f = new FormMenuReportes();
             f.ShowDialog();
         }
+
+        private void btnCreditos_Click(object sender, EventArgs e)
+        {
+            FormCreditos f = new FormCreditos();
+            f.ShowDialog();
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

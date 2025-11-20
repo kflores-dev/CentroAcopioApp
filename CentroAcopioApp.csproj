@@ -119,6 +119,12 @@
     <Compile Include="Presentacion\Formularios\BaseForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Presentacion\Formularios\FormCreditos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presentacion\Formularios\FormCreditos.Designer.cs">
+      <DependentUpon>FormCreditos.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presentacion\Formularios\FormLogin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -248,6 +254,9 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilidades\FiltroRolHelper.cs" />
+    <EmbeddedResource Include="Presentacion\Formularios\FormCreditos.resx">
+      <DependentUpon>FormCreditos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presentacion\Formularios\FormLogin.resx">
       <DependentUpon>FormLogin.cs</DependentUpon>
     </EmbeddedResource>
@@ -332,9 +341,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Presentacion\Controladores\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

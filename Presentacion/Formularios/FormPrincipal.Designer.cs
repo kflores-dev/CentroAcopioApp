@@ -54,6 +54,7 @@ namespace CentroAcopioApp.Presentacion.Formularios
             this.label11 = new System.Windows.Forms.Label();
             this.lbUsuario = new System.Windows.Forms.Label();
             this.lbRol = new System.Windows.Forms.Label();
+            this.btnCreditos = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnGestionRecursos
@@ -242,16 +243,17 @@ namespace CentroAcopioApp.Presentacion.Formularios
             // label9
             // 
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(385, 29);
+            this.label9.Location = new System.Drawing.Point(417, 29);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(337, 54);
             this.label9.TabIndex = 16;
-            this.label9.Text = "Centro de acopio";
+            this.label9.Text = "AcopioSmart";
+            this.label9.Click += new System.EventHandler(this.label9_Click);
             // 
             // btnSalir
             // 
             this.btnSalir.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSalir.Location = new System.Drawing.Point(930, 12);
+            this.btnSalir.Location = new System.Drawing.Point(930, 655);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(94, 52);
             this.btnSalir.TabIndex = 17;
@@ -299,11 +301,23 @@ namespace CentroAcopioApp.Presentacion.Formularios
             this.lbRol.TabIndex = 21;
             this.lbRol.Text = "ninguno";
             // 
+            // btnCreditos
+            // 
+            this.btnCreditos.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCreditos.Location = new System.Drawing.Point(930, 12);
+            this.btnCreditos.Name = "btnCreditos";
+            this.btnCreditos.Size = new System.Drawing.Size(94, 52);
+            this.btnCreditos.TabIndex = 22;
+            this.btnCreditos.Text = "Creditos";
+            this.btnCreditos.UseVisualStyleBackColor = true;
+            this.btnCreditos.Click += new System.EventHandler(this.btnCreditos_Click);
+            // 
             // FormPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1036, 719);
+            this.Controls.Add(this.btnCreditos);
             this.Controls.Add(this.lbRol);
             this.Controls.Add(this.lbUsuario);
             this.Controls.Add(this.label11);
@@ -333,6 +347,8 @@ namespace CentroAcopioApp.Presentacion.Formularios
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Button btnCreditos;
 
         private System.Windows.Forms.Label label9;
 
