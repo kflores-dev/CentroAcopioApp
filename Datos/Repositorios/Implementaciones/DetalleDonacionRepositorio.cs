@@ -88,7 +88,7 @@ namespace CentroAcopioApp.Datos.Repositorios.Implementaciones
                    dd.cantidad_donada,
                    dd.ubicacion_id, u.nombre AS ubicacion_nombre,
                    dd.vigencia
-            FROM detalle_donacion dd
+          
             INNER JOIN recurso r ON dd.recurso_id = r.id
             INNER JOIN ubicacion u ON dd.ubicacion_id = u.id
             WHERE dd.donacion_id = @DonacionId";
